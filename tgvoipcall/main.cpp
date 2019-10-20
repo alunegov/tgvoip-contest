@@ -11,7 +11,7 @@
 using namespace tgvoip;
 
 struct Conf {
-    static const int64_t EndpointId{2373083837059};
+    static const int64_t EndpointId{1};
     static const Endpoint::Type EndpointType{Endpoint::UDP_RELAY};
     static const bool AllowP2p{false};
     static const int32_t ConnMaxLayer{92};
@@ -29,6 +29,7 @@ struct Conf {
 Conf parseArgs(int argc, const char* argv[]);
 std::string readConfig(const std::string& ConfigFileName);
 std::vector<Endpoint> createEndpoints(const Conf& conf);
+void decodeHex(const std::string& hex, unsigned char* dest, size_t destLen);
 
 int main(int argc, const char* argv[]) {
     try {
@@ -52,7 +53,9 @@ int main(int argc, const char* argv[]) {
         controllerConfig.recvTimeout = 4;
         c->SetConfig(controllerConfig);
 
-        c->SetEncryptionKey((char*)(conf.EncryptionKey.c_str()), conf.IsOutgoing);
+        unsigned char encKey[256];
+        decodeHex(conf.EncryptionKey, encKey, 256);
+        c->SetEncryptionKey((char*)(encKey), conf.IsOutgoing);
 
         const auto input = [](int16_t* data, size_t len) {
             cout << "input return " << len << std::endl;
@@ -117,9 +120,9 @@ Conf parseArgs(int argc, const char* argv[]) {
 
     if (argc == 1) {
         res.AddrIp = "134.209.178.88";
-        res.AddrPort = 556;
-        res.Tag = "";
-        res.EncryptionKey = "";
+        res.AddrPort = 553;
+        res.Tag = "304b57e5dcc8298dec3f13089006a8bb";
+        res.EncryptionKey = "399a4ec265f2025e8a5c6e39b2c257e4e3ab87d54fadb83c16637c2a714097ede18c4a3034654d7598d246e980bea26516aa92c336c5d5e436bbb18933442169428ee294a70c37992fb7e94b1312da93760a527127f21535eb32e990cf1ec7962285b5f2483ed0f5da332dcf1ffec1c212ea1bece0ba124efac2a336a48aae36f22d542b38b5f6965950244db0011f8a72bbffe98381d0dba549a52a9f9b609c14ee86a4fd12facb65fa986d0f4a3e99d130be7f6494d92adc3a8244654a8e7aa89e1817746def0f1652c31fd264722ea0daf536fdad6cd63061903a7cb3e93780bf3273988f3f470fdb412f9a71e249335e35754337ca7a58fe0030633c32ea";
         res.ConfigFileName = "config.json";
         res.IsOutgoing = true;
 
@@ -175,9 +178,19 @@ std::string readConfig(const std::string& configFileName) {
 std::vector<Endpoint> createEndpoints(const Conf& conf) {
     std::vector<Endpoint> res;
 
+    unsigned char peerTag[16];
+    decodeHex(conf.Tag, peerTag, 16);
     const Endpoint endpoint{Conf::EndpointId, conf.AddrPort, IPv4Address{conf.AddrIp}, IPv6Address{},
-        Conf::EndpointType, (unsigned char*)(conf.Tag.c_str())};
+        Conf::EndpointType, peerTag};
     res.emplace_back(endpoint);
 
     return res;
+}
+
+void decodeHex(const std::string& hex, unsigned char* dest, size_t destLen) {
+    for (size_t i = 0; i < destLen; i++) {
+        const auto c = hex.substr(2 * i, 2);
+        const auto b = std::stoul(c, nullptr, 16);
+        dest[i] = (unsigned char)b;
+    }
 }
