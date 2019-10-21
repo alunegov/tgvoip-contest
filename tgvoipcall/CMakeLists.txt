@@ -8,6 +8,8 @@ if(MSVC)
 else()
     find_library(TGVOIP_LIB libtgvoip.a)
 endif()
+add_subdirectory(../opusfile-reader opusfile-reader)
+add_subdirectory(../opusfile-writer opusfile-writer)
 
 set(source_list "main.cpp")
 
@@ -36,7 +38,9 @@ endif()
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE ${OPENSSL_CRYPTO_LIBRARY}
-    PRIVATE ${TGVOIP_LIB}
+    #PRIVATE ${TGVOIP_LIB}
+    PRIVATE opusfile-reader
+    PRIVATE opusfile-writer
 )
 if(MSVC)
     target_link_libraries(${PROJECT_NAME}

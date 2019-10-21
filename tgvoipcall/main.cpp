@@ -8,6 +8,9 @@
 #include <VoIPController.h>
 #include <VoIPServerConfig.h>
 
+#include <reader.h>
+#include <writer.h>
+
 using namespace tgvoip;
 
 struct Conf {
@@ -57,59 +60,70 @@ int main(int argc, const char* argv[]) {
         decodeHex(conf.EncryptionKey, encKey, 256);
         c->SetEncryptionKey((char*)(encKey), conf.IsOutgoing);
 
-        const auto input = [](int16_t* data, size_t len) {
+        OpusFileReader r;
+        OpusFileWriter w;
+
+        r.Open(conf.InputFileName);
+        w.Create(conf.OutputFileName);
+
+        const auto input = [&](int16_t* data, size_t len) {
             cout << "input return " << len << std::endl;
-            data[0] = 13;
+            r.Read(data, len);
         };
-        const auto output = [](int16_t* data, size_t len) {
+        const auto output = [&](int16_t* data, size_t len) {
             cout << "output got " << len << std::endl;
+            w.Write(data, len);
         };
         c->SetAudioDataCallbacks(input, output);
 
-        VoIPController::Callbacks callbacks{};
-        callbacks.connectionStateChanged = [](VoIPController* c_, int state) { cout  << "connectionStateChanged " << state << std::endl; };
+        /*VoIPController::Callbacks callbacks{};
+        callbacks.connectionStateChanged = [](VoIPController* c_, int state_) { cout  << "connectionStateChanged " << state_ << std::endl; };
         callbacks.signalBarCountChanged = [](VoIPController* c_, int barCount) { cout  << "signalBarCountChanged " << barCount << std::endl; };
         callbacks.groupCallKeySent = [](VoIPController* c_) { cout  << "groupCallKeySent" << std::endl; };
         callbacks.groupCallKeyReceived = [](VoIPController* c_, const unsigned char* callKey) { cout  << "groupCallKeyReceived " << callKey << std::endl; };
         callbacks.upgradeToGroupCallRequested = [](VoIPController* c_) { cout  << "upgradeToGroupCallRequested" << std::endl; };
-        c->SetCallbacks(callbacks);
+        c->SetCallbacks(callbacks);*/
 
-        const auto i = VoIPController::EnumerateAudioInputs();
+        /*const auto i = VoIPController::EnumerateAudioInputs();
         const auto o = VoIPController::EnumerateAudioOutputs();
         c->SetInputVolume(100);
         c->SetOutputVolume(100);
         c->SetCurrentAudioInput("default");
         c->SetCurrentAudioOutput("default");
-        c->SetMicMute(false);
+        c->SetMicMute(false);*/
 
-        c->SetNetworkType(Conf::NetworkType);
-        c->SetNetworkType(NET_TYPE_OTHER_HIGH_SPEED);
-
-        //cout << c->GetDebugString() << std::endl;
+        //c->SetNetworkType(Conf::NetworkType);
 
         c->Start();
-        //cout << c->GetDebugString() << std::endl;
         c->Connect();
-        //cout << c->GetDebugString() << std::endl;
 
-        std::this_thread::sleep_for(std::chrono::seconds(10));
-        cout << c->GetDebugString() << std::endl;
+        int res{0};
 
-        //c->DebugCtl(3, 1);
-        //std::this_thread::sleep_for(std::chrono::seconds(3));
-
-        //c->DebugCtl(3, 0);
-        //std::this_thread::sleep_for(std::chrono::seconds(3));
+        while (true) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(333));
+            if (c->GetConnectionState() == STATE_FAILED) {
+                cerr << c->GetDebugString() << std::endl;
+                res = -1;
+                break;
+            }
+            if (r.Eof()) {
+                std::this_thread::sleep_for(std::chrono::seconds(3));
+                break;
+            }
+        }
 
         c->Stop();
-        //cout << c->GetDebugString() << std::endl;
 
-        cout << c->GetDebugLog();
+        if (res == 0) {
+            cout << c->GetDebugLog() << std::endl;
+        }
 
         c.reset(nullptr);
+
+        return res;
     } catch (std::exception& e) {
         cerr << e.what();
-        return -1;
+        return -13;
     }
 }
 
