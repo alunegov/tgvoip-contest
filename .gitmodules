@@ -1,0 +1,9 @@
+[submodule "_ext/libopusenc"]
+	path = _ext/libopusenc
+	url = https://git.xiph.org/libopusenc.git
+[submodule "_ext/opusfile"]
+	path = _ext/opusfile
+	url = https://git.xiph.org/opusfile.git
+[submodule "_ext/opus"]
+	path = _ext/opus
+	url = https://git.xiph.org/opus.git

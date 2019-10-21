@@ -8,7 +8,9 @@ OpusFileWriter::OpusFileWriter() {
 }
 
 OpusFileWriter::~OpusFileWriter() {
-    ope_encoder_destroy((OggOpusEnc*)encData.enc);
+    if (encData.enc != nullptr) {
+        ope_encoder_destroy((OggOpusEnc *) encData.enc);
+    }
 }
 
 bool OpusFileWriter::Create(const std::string& fileName) {
@@ -17,15 +19,16 @@ bool OpusFileWriter::Create(const std::string& fileName) {
     const auto rate{48000};
     const auto chan{1};
 
-    OpusEncCallbacks callbacks{
-        write_callback,
-        close_callback
-    };
+    OggOpusComments* comments = ope_comments_create();
+    ope_comments_add(comments, "a", "b");
 
-    encData.enc = ope_encoder_create_callbacks(&callbacks, &encData, nullptr, rate, chan, (chan > 8) ? 255 : chan > 2, &ret);
+    encData.enc = ope_encoder_create_file(fileName.c_str(), comments, rate, chan, (chan > 8) ? 255 : chan > 2, &ret);
+    ope_comments_destroy(comments);
     if (encData.enc == nullptr) {
         return false;
     }
+
+    ret = ope_encoder_ctl((OggOpusEnc*)encData.enc, OPUS_SET_BITRATE(64000));
 
     return true;
 }

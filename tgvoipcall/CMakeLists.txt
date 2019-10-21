@@ -8,6 +8,7 @@ if(MSVC)
 else()
     find_library(TGVOIP_LIB libtgvoip.a)
 endif()
+#find_path(TGVOIP_INCLUDE VoIPController.h HINTS ../../../Work3/libtgvoip)
 add_subdirectory(../opusfile-reader opusfile-reader)
 add_subdirectory(../opusfile-writer opusfile-writer)
 
@@ -38,7 +39,7 @@ endif()
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE ${OPENSSL_CRYPTO_LIBRARY}
-    #PRIVATE ${TGVOIP_LIB}
+    PRIVATE ${TGVOIP_LIB}
     PRIVATE opusfile-reader
     PRIVATE opusfile-writer
 )
@@ -47,12 +48,9 @@ if(MSVC)
         PRIVATE ws2_32
         PRIVATE winmm
         PRIVATE Iphlpapi
-        #PRIVATE opus
     )
 else()
     target_link_libraries(${PROJECT_NAME}
         PRIVATE pthread
-        PRIVATE dl
-        PRIVATE opus
     )
 endif()

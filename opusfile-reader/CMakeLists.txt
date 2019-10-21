@@ -2,9 +2,18 @@ cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 project(opusfile-reader LANGUAGES CXX)
 
-find_library(OGG_LIB libogg.lib)
-find_library(OPUS_LIB opus.lib)
-find_library(OPUSFILE_LIB opusfile.lib)
+if(MSVC)
+    find_library(OGG_LIB libogg.lib)
+    find_library(OPUS_LIB opus.lib)
+    find_library(OPUSFILE_LIB opusfile.lib)
+else()
+    find_library(OGG_LIB libogg.so HINTS /usr/lib/x86_64-linux-gnu)
+    find_library(OPUS_LIB libopus.so HINTS /usr/lib/x86_64-linux-gnu)
+    find_library(OPUSFILE_LIB libopusfile.so HINTS /usr/lib)
+endif()
+find_path(OGG_INCLUDE ogg.h HINTS /usr/include/ogg)
+find_path(OPUS_INCLUDE opus.h HINTS /usr/include/opus)
+find_path(OPUSFILE_INCLUDE opusfile.h HINTS /usr/include/opus)
 
 set(source_list "reader.cpp" "reader.h")
 
@@ -15,9 +24,9 @@ set_property(TARGET opusfile-reader PROPERTY CXX_STANDARD_REQUIRED ON)
 
 target_include_directories(opusfile-reader
     PUBLIC "."
-    PRIVATE "../../../Work3/ogg/include"
-    PRIVATE "../../../Work3/opus/include"
-    PRIVATE "../../../Work3/opusfile/include"
+    PRIVATE ${OGG_INCLUDE}
+    PRIVATE ${OPUS_INCLUDE}
+    PRIVATE ${OPUSFILE_INCLUDE}
 )
 
 if(MSVC)

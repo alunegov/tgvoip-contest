@@ -3,6 +3,10 @@
 #include <cstdint>
 #include <string>
 
+struct EncData {
+    void* enc{nullptr};
+};
+
 class OpusFileWriter {
 public:
     OpusFileWriter();
@@ -13,8 +17,4 @@ public:
 private:
     EncData encData;
     int ret{0};
-};
-
-struct EncData {
-    void* enc{nullptr};
 };

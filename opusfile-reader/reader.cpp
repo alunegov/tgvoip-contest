@@ -1,6 +1,7 @@
 #include <reader.h>
 
 #include <cassert>
+#include <cstring>
 
 #include <opusfile.h>
 
@@ -8,7 +9,9 @@ OpusFileReader::OpusFileReader() {
 }
 
 OpusFileReader::~OpusFileReader() {
-    op_free((OggOpusFile*)file);
+    if (file != nullptr) {
+        op_free((OggOpusFile *) file);
+    }
 }
 
 bool OpusFileReader::Open(const std::string& fileName) {

@@ -38,6 +38,16 @@ int main(int argc, const char* argv[]) {
     try {
         const auto conf = parseArgs(argc, argv);
 
+        OpusFileReader r;
+        OpusFileWriter w;
+
+        if (!r.Open(conf.InputFileName)) {
+            return -2;
+        }
+        if (!w.Create(conf.OutputFileName)) {
+            return -3;
+        }
+
         const auto serverConfig = readConfig(conf.ConfigFileName);
         ServerConfig::GetSharedInstance()->Update(serverConfig);
 
@@ -60,12 +70,6 @@ int main(int argc, const char* argv[]) {
         decodeHex(conf.EncryptionKey, encKey, 256);
         c->SetEncryptionKey((char*)(encKey), conf.IsOutgoing);
 
-        OpusFileReader r;
-        OpusFileWriter w;
-
-        r.Open(conf.InputFileName);
-        w.Create(conf.OutputFileName);
-
         const auto input = [&](int16_t* data, size_t len) {
             cout << "input return " << len << std::endl;
             r.Read(data, len);
@@ -75,24 +79,6 @@ int main(int argc, const char* argv[]) {
             w.Write(data, len);
         };
         c->SetAudioDataCallbacks(input, output);
-
-        /*VoIPController::Callbacks callbacks{};
-        callbacks.connectionStateChanged = [](VoIPController* c_, int state_) { cout  << "connectionStateChanged " << state_ << std::endl; };
-        callbacks.signalBarCountChanged = [](VoIPController* c_, int barCount) { cout  << "signalBarCountChanged " << barCount << std::endl; };
-        callbacks.groupCallKeySent = [](VoIPController* c_) { cout  << "groupCallKeySent" << std::endl; };
-        callbacks.groupCallKeyReceived = [](VoIPController* c_, const unsigned char* callKey) { cout  << "groupCallKeyReceived " << callKey << std::endl; };
-        callbacks.upgradeToGroupCallRequested = [](VoIPController* c_) { cout  << "upgradeToGroupCallRequested" << std::endl; };
-        c->SetCallbacks(callbacks);*/
-
-        /*const auto i = VoIPController::EnumerateAudioInputs();
-        const auto o = VoIPController::EnumerateAudioOutputs();
-        c->SetInputVolume(100);
-        c->SetOutputVolume(100);
-        c->SetCurrentAudioInput("default");
-        c->SetCurrentAudioOutput("default");
-        c->SetMicMute(false);*/
-
-        //c->SetNetworkType(Conf::NetworkType);
 
         c->Start();
         c->Connect();
@@ -113,6 +99,8 @@ int main(int argc, const char* argv[]) {
         }
 
         c->Stop();
+
+        w.Flush();
 
         if (res == 0) {
             cout << c->GetDebugLog() << std::endl;
@@ -137,6 +125,8 @@ Conf parseArgs(int argc, const char* argv[]) {
         res.AddrPort = 553;
         res.Tag = "304b57e5dcc8298dec3f13089006a8bb";
         res.EncryptionKey = "399a4ec265f2025e8a5c6e39b2c257e4e3ab87d54fadb83c16637c2a714097ede18c4a3034654d7598d246e980bea26516aa92c336c5d5e436bbb18933442169428ee294a70c37992fb7e94b1312da93760a527127f21535eb32e990cf1ec7962285b5f2483ed0f5da332dcf1ffec1c212ea1bece0ba124efac2a336a48aae36f22d542b38b5f6965950244db0011f8a72bbffe98381d0dba549a52a9f9b609c14ee86a4fd12facb65fa986d0f4a3e99d130be7f6494d92adc3a8244654a8e7aa89e1817746def0f1652c31fd264722ea0daf536fdad6cd63061903a7cb3e93780bf3273988f3f470fdb412f9a71e249335e35754337ca7a58fe0030633c32ea";
+        res.InputFileName = "in.ogg";
+        res.OutputFileName = "out.ogg";
         res.ConfigFileName = "config.json";
         res.IsOutgoing = true;
 
