@@ -39,6 +39,8 @@ target_link_libraries(opusfile-writer
     INTERFACE ${OPUSENC_LIB}
 )
 
+add_subdirectory(../wavefile-reader wavefile-reader)
+
 add_executable(opusfile-writer-test "writer_test.cpp")
 target_include_directories(opusfile-writer-test PUBLIC $<TARGET_PROPERTY:opusfile-writer,INCLUDE_DIRECTORIES>)
 if(MSVC)
@@ -50,4 +52,4 @@ else()
         PRIVATE -Wall -Wextra
     )
 endif()
-target_link_libraries(opusfile-writer-test PUBLIC opusfile-writer)
+target_link_libraries(opusfile-writer-test PUBLIC opusfile-writer wavefile-reader)

@@ -13,8 +13,8 @@ public:
     ~OpusFileWriter();
     bool Create(const std::string& fileName);
     bool Write(int16_t* data, size_t len);
-    bool Flush();
+    bool Commit();
 private:
     EncData encData;
-    int ret{0};
+    bool isCommited{true};
 };

@@ -11,7 +11,7 @@ else()
     find_library(OPUS_LIB libopus.so HINTS /usr/lib/x86_64-linux-gnu)
     find_library(OPUSFILE_LIB libopusfile.so HINTS /usr/lib)
 endif()
-find_path(OGG_INCLUDE ogg.h HINTS /usr/include/ogg)
+find_path(OGG_INCLUDE ogg.h HINTS /usr/include/ogg PATH_SUFFIXES ogg)
 find_path(OPUS_INCLUDE opus.h HINTS /usr/include/opus)
 find_path(OPUSFILE_INCLUDE opusfile.h HINTS /usr/include/opus)
 
@@ -24,7 +24,7 @@ set_property(TARGET opusfile-reader PROPERTY CXX_STANDARD_REQUIRED ON)
 
 target_include_directories(opusfile-reader
     PUBLIC "."
-    PRIVATE ${OGG_INCLUDE}
+    PRIVATE ${OGG_INCLUDE}/..
     PRIVATE ${OPUS_INCLUDE}
     PRIVATE ${OPUSFILE_INCLUDE}
 )
@@ -45,6 +45,8 @@ target_link_libraries(opusfile-reader
     INTERFACE ${OPUSFILE_LIB}
 )
 
+add_subdirectory(../wavefile-writer wavefile-writer)
+
 add_executable(opusfile-reader-test "reader_test.cpp")
 target_include_directories(opusfile-reader-test PUBLIC $<TARGET_PROPERTY:opusfile-reader,INCLUDE_DIRECTORIES>)
 if(MSVC)
@@ -56,4 +58,4 @@ else()
         PRIVATE -Wall -Wextra
     )
 endif()
-target_link_libraries(opusfile-reader-test PUBLIC opusfile-reader)
+target_link_libraries(opusfile-reader-test PUBLIC opusfile-reader wavefile-writer)

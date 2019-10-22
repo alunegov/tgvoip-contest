@@ -13,7 +13,6 @@ public:
     bool Eof() const;
 private:
     void* file{nullptr};
-    int li{0};
     int old_li{-1};
     std::atomic_bool eof{false};
 };

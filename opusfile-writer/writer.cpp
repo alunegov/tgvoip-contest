@@ -9,19 +9,21 @@ OpusFileWriter::OpusFileWriter() {
 
 OpusFileWriter::~OpusFileWriter() {
     if (encData.enc != nullptr) {
-        ope_encoder_destroy((OggOpusEnc *) encData.enc);
+        Commit();
+        ope_encoder_destroy((OggOpusEnc *)encData.enc);
     }
 }
 
 bool OpusFileWriter::Create(const std::string& fileName) {
     assert(encData.enc == nullptr);
+    assert(!isCommited);
 
     const auto rate{48000};
     const auto chan{1};
 
-    OggOpusComments* comments = ope_comments_create();
-    ope_comments_add(comments, "a", "b");
+    int ret;
 
+    OggOpusComments* comments = ope_comments_create();
     encData.enc = ope_encoder_create_file(fileName.c_str(), comments, rate, chan, (chan > 8) ? 255 : chan > 2, &ret);
     ope_comments_destroy(comments);
     if (encData.enc == nullptr) {
@@ -29,22 +31,38 @@ bool OpusFileWriter::Create(const std::string& fileName) {
     }
 
     ret = ope_encoder_ctl((OggOpusEnc*)encData.enc, OPUS_SET_BITRATE(64000));
+    if (ret != OPE_OK) {
+        return false;
+    }
 
     return true;
 }
 
 bool OpusFileWriter::Write(int16_t* data, size_t len) {
     assert(encData.enc != nullptr);
+    assert(!isCommited);
 
-    ret = ope_encoder_write((OggOpusEnc*)encData.enc, data, len);
+    auto ret = ope_encoder_write((OggOpusEnc*)encData.enc, data, len);
+    if (ret != OPE_OK) {
+        return false;
+    }
 
-    return ret == OPE_OK;
+    return true;
 }
 
-bool OpusFileWriter::Flush() {
+bool OpusFileWriter::Commit() {
     assert(encData.enc != nullptr);
 
-    if (ret == OPE_OK) ret = ope_encoder_drain((OggOpusEnc*)encData.enc);
+    if (isCommited) {
+        return true;
+    }
 
-    return ret == OPE_OK;
+    auto ret = ope_encoder_drain((OggOpusEnc*)encData.enc);
+    if (ret != OPE_OK) {
+        return false;
+    }
+
+    isCommited = true;
+
+    return true;
 }

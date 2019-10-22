@@ -38,7 +38,7 @@ bool OpusFileReader::Read(int16_t* data, size_t len) {
         return false;
     }
 
-    int all_read = 0;
+    size_t all_read = 0;
     while (all_read < len) {
         int li;
         const int nb_read = op_read((OggOpusFile*)file, &data[all_read], len - all_read, &li);

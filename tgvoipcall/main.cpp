@@ -10,6 +10,7 @@
 
 #include <reader.h>
 #include <writer.h>
+#include <wavefile-writer.h>
 
 using namespace tgvoip;
 
@@ -40,12 +41,16 @@ int main(int argc, const char* argv[]) {
 
         OpusFileReader r;
         OpusFileWriter w;
+        WaveFileWriter waveW;
 
         if (!r.Open(conf.InputFileName)) {
             return -2;
         }
         if (!w.Create(conf.OutputFileName)) {
             return -3;
+        }
+        if (!waveW.Create(conf.OutputFileName + ".wav")) {
+            return -4;
         }
 
         const auto serverConfig = readConfig(conf.ConfigFileName);
@@ -71,12 +76,13 @@ int main(int argc, const char* argv[]) {
         c->SetEncryptionKey((char*)(encKey), conf.IsOutgoing);
 
         const auto input = [&](int16_t* data, size_t len) {
-            cout << "input return " << len << std::endl;
+            //cout << "input return " << len << std::endl;
             r.Read(data, len);
         };
         const auto output = [&](int16_t* data, size_t len) {
-            cout << "output got " << len << std::endl;
+            //cout << "output got " << len << std::endl;
             w.Write(data, len);
+            waveW.Write(data, len);
         };
         c->SetAudioDataCallbacks(input, output);
 
@@ -100,7 +106,8 @@ int main(int argc, const char* argv[]) {
 
         c->Stop();
 
-        w.Flush();
+        w.Commit();
+        waveW.Commit();
 
         if (res == 0) {
             cout << c->GetDebugLog() << std::endl;
@@ -136,26 +143,26 @@ Conf parseArgs(int argc, const char* argv[]) {
     const auto p = parseAddr(argv[1]);
     res.AddrIp = p.first;
     res.AddrPort = p.second;
-    cout << res.AddrIp << ":" << res.AddrPort << std::endl;
+    //cout << res.AddrIp << ":" << res.AddrPort << std::endl;
 
     res.Tag = argv[2];
-    cout << res.Tag << std::endl;
+    //cout << res.Tag << std::endl;
 
     for (int i = 3; (i + 2) <= argc; i += 2) {
         const std::string key{argv[i]};
         if (key == "-k") {
             res.EncryptionKey = argv[i + 1];
-            cout << res.EncryptionKey << std::endl;
+            //cout << res.EncryptionKey << std::endl;
         } else if (key == "-i") {
             res.InputFileName = argv[i + 1];
         } else if (key == "-o") {
             res.OutputFileName = argv[i + 1];
         } else if (key == "-c") {
             res.ConfigFileName = argv[i + 1];
-            cout << res.ConfigFileName << std::endl;
+            //cout << res.ConfigFileName << std::endl;
         } else if (key == "-r") {
             res.IsOutgoing = std::string{argv[i + 1]} == "caller";
-            cout << res.IsOutgoing << std::endl;
+            //cout << res.IsOutgoing << std::endl;
         }
     }
 
