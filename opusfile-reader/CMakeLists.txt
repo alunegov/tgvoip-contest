@@ -15,7 +15,7 @@ find_path(OGG_INCLUDE ogg.h HINTS /usr/include/ogg PATH_SUFFIXES ogg)
 find_path(OPUS_INCLUDE opus.h HINTS /usr/include/opus)
 find_path(OPUSFILE_INCLUDE opusfile.h HINTS /usr/include/opus)
 
-set(source_list "reader.cpp" "reader.h")
+set(source_list "opusfile-reader.cpp" "opusfile-reader.h")
 
 add_library(opusfile-reader ${source_list})
 
@@ -47,7 +47,7 @@ target_link_libraries(opusfile-reader
 
 add_subdirectory(../wavefile-writer wavefile-writer)
 
-add_executable(opusfile-reader-test "reader_test.cpp")
+add_executable(opusfile-reader-test "opusfile-reader_test.cpp")
 target_include_directories(opusfile-reader-test PUBLIC $<TARGET_PROPERTY:opusfile-reader,INCLUDE_DIRECTORIES>)
 if(MSVC)
     target_compile_options(opusfile-reader-test

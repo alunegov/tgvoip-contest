@@ -8,8 +8,8 @@
 #include <VoIPController.h>
 #include <VoIPServerConfig.h>
 
-#include <reader.h>
-#include <writer.h>
+#include <opusfile-reader.h>
+#include <opusfile-writer.h>
 #include <wavefile-writer.h>
 
 using namespace tgvoip;

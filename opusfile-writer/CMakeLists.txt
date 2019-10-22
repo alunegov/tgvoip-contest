@@ -11,7 +11,7 @@ else()
 endif()
 find_path(OPUS_INCLUDE opus.h HINTS /usr/include/opus)
 
-set(source_list "writer.cpp" "writer.h")
+set(source_list "opusfile-writer.cpp" "opusfile-writer.h")
 
 add_library(opusfile-writer ${source_list})
 
@@ -41,7 +41,7 @@ target_link_libraries(opusfile-writer
 
 add_subdirectory(../wavefile-reader wavefile-reader)
 
-add_executable(opusfile-writer-test "writer_test.cpp")
+add_executable(opusfile-writer-test "opusfile-writer_test.cpp")
 target_include_directories(opusfile-writer-test PUBLIC $<TARGET_PROPERTY:opusfile-writer,INCLUDE_DIRECTORIES>)
 if(MSVC)
     target_compile_options(opusfile-writer-test

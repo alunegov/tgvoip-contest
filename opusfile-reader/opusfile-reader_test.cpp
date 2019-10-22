@@ -1,17 +1,16 @@
-#include <writer.h>
-
 #include <iostream>
 
-#include <wavefile-reader.h>
+#include <opusfile-reader.h>
+#include <wavefile-writer.h>
 
 int main(int argc, char **argv) {
     if (argc < 3) {
-        std::cout << "Usage: " << argv[0] << " in.wav out.ogg";
+        std::cout << "Usage: " << argv[0] << " in.ogg out.wav";
         return -1;
     }
 
-    WaveFileReader r;
-    OpusFileWriter w;
+    OpusFileReader r;
+    WaveFileWriter w;
 
     if (!r.Open(argv[1])) {
         std::cout << "in open error" << std::endl;
@@ -27,7 +26,12 @@ int main(int argc, char **argv) {
     int16_t buf[MaxLen];
     size_t j{0};
     while (r.Read(buf, MaxLen)) {
-        // to ogg
+        // to csv via stdout
+        /*for (size_t i = 0; i < MaxLen; i++) {
+            std::cout << j + i << ";" << buf[i] << std::endl;
+        }*/
+
+        // to wave
         if (!w.Write(buf, MaxLen)) {
             std::cout << "out write error at " << j << " byte" << std::endl;
         }

@@ -1,4 +1,4 @@
-#include <writer.h>
+#include <opusfile-writer.h>
 
 #include <cassert>
 
