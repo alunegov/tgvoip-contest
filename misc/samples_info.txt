@@ -1,0 +1,898 @@
+d:\tmp\___flash\voip\8330212146081325028\samples\sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg"...
+
+New logical stream (#1, serial: 453cffac): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  913.3ms (avg),  480.0ms (min)
+	Total data length: 44159 bytes (overhead: 1.37%)
+	Playback length: 0m:05.459s
+	Average bitrate: 64.7 kbit/s, w/o overhead: 63.82 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample05_0bb3646f15e8dc61f525f40f2884de57.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample05_0bb3646f15e8dc61f525f40f2884de57.ogg"...
+
+New logical stream (#1, serial: b59f82a5): type opus
+Encoded with libopus 1.3
+WARNING: EOS not set on stream 1 (normal for live streams)
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  900.0ms (avg),  400.0ms (min)
+	Total data length: 20673 bytes (overhead: 6.16%)
+	Playback length: 0m:05.393s
+	Average bitrate: 30.66 kbit/s, w/o overhead: 28.78 kbit/s
+d:\tmp\___flash\voip\8330212146081325028\samples\sample05_14ae7b1886265e54e7f2c83d67eb802e.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample05_14ae7b1886265e54e7f2c83d67eb802e.ogg"...
+
+New logical stream (#1, serial: 62dc1c45): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 13204 bytes (overhead: 25.5%)
+	Playback length: 0m:05.363s
+	Average bitrate: 19.69 kbit/s, w/o overhead: 14.68 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample05_44823b5704b026f2930ad862576bef3c.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample05_44823b5704b026f2930ad862576bef3c.ogg"...
+
+New logical stream (#1, serial: a53fb406): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max), 1000.0ms (avg), 1000.0ms (min)
+	Total data length: 49837 bytes (overhead: 1.27%)
+	Playback length: 0m:05.979s
+	Average bitrate: 66.67 kbit/s, w/o overhead: 65.82 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample05_7f3d7554d1fe70872389e84ebe802984.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample05_7f3d7554d1fe70872389e84ebe802984.ogg"...
+
+New logical stream (#1, serial: 5a425981): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 13372 bytes (overhead: 25.1%)
+	Playback length: 0m:05.363s
+	Average bitrate: 19.94 kbit/s, w/o overhead: 14.93 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample05_93fd2fb8e32e04fff51eaa1677a471c8.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample05_93fd2fb8e32e04fff51eaa1677a471c8.ogg"...
+
+New logical stream (#1, serial: 36d04d96): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 12421 bytes (overhead: 26.2%)
+	Playback length: 0m:05.120s
+	Average bitrate: 19.41 kbit/s, w/o overhead: 14.33 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample05_b4e08e2fae45c5991b82b80755d042a5.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample05_b4e08e2fae45c5991b82b80755d042a5.ogg"...
+
+New logical stream (#1, serial: 5bb166e6): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 12482 bytes (overhead: 25.6%)
+	Playback length: 0m:05.008s
+	Average bitrate: 19.94 kbit/s, w/o overhead: 14.84 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample05_e181863bce6738bace6841b174713716.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample05_e181863bce6738bace6841b174713716.ogg"...
+
+New logical stream (#1, serial: 3aef09e2): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 10813 bytes (overhead: 27.7%)
+	Playback length: 0m:04.572s
+	Average bitrate: 18.92 kbit/s, w/o overhead: 13.68 kbit/s
+Logical stream 1 ended
+WARNING: illegally placed page(s) for logical stream 1
+This indicates a corrupt Ogg file: Page found for stream after EOS flag.
+d:\tmp\___flash\voip\8330212146081325028\samples\sample05_f8498e0018ea93b1158ec6fec09b23e5.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample05_f8498e0018ea93b1158ec6fec09b23e5.ogg"...
+
+New logical stream (#1, serial: 99e031a8): type opus
+Encoded with libopus 1.3
+WARNING: EOS not set on stream 1 (normal for live streams)
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  983.3ms (avg),  900.0ms (min)
+	Total data length: 22225 bytes (overhead: 5.84%)
+	Playback length: 0m:05.893s
+	Average bitrate: 30.17 kbit/s, w/o overhead: 28.41 kbit/s
+d:\tmp\___flash\voip\8330212146081325028\samples\sample05_ff63f34c691af48ef285649054ab4906.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample05_ff63f34c691af48ef285649054ab4906.ogg"...
+
+New logical stream (#1, serial: 584ac82a): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 14106 bytes (overhead: 25.2%)
+	Playback length: 0m:05.780s
+	Average bitrate: 19.52 kbit/s, w/o overhead: 14.6 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample06_08332cdbd86d4f09d30cd81c4f436081.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample06_08332cdbd86d4f09d30cd81c4f436081.ogg"...
+
+New logical stream (#1, serial: 17ebc95b): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 14884 bytes (overhead: 24.7%)
+	Playback length: 0m:06.024s
+	Average bitrate: 19.77 kbit/s, w/o overhead: 14.89 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample06_43af06b41db225c41a659da60408148a.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample06_43af06b41db225c41a659da60408148a.ogg"...
+
+New logical stream (#1, serial: 46499ad7): type opus
+Encoded with libopus 1.3
+WARNING: EOS not set on stream 1 (normal for live streams)
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  922.9ms (avg),  460.0ms (min)
+	Total data length: 25763 bytes (overhead: 5.25%)
+	Playback length: 0m:06.453s
+	Average bitrate: 31.94 kbit/s, w/o overhead: 30.26 kbit/s
+d:\tmp\___flash\voip\8330212146081325028\samples\sample06_6691afc81fd72df69da5b1a7a508b30e.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample06_6691afc81fd72df69da5b1a7a508b30e.ogg"...
+
+New logical stream (#1, serial: 1ee82e82): type opus
+Encoded with libopus 1.3
+WARNING: EOS not set on stream 1 (normal for live streams)
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  991.4ms (avg),  940.0ms (min)
+	Total data length: 27864 bytes (overhead: 4.94%)
+	Playback length: 0m:06.933s
+	Average bitrate: 32.15 kbit/s, w/o overhead: 30.56 kbit/s
+d:\tmp\___flash\voip\8330212146081325028\samples\sample06_afb5f1ecdd37621d1be77b20691fefd8.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample06_afb5f1ecdd37621d1be77b20691fefd8.ogg"...
+
+New logical stream (#1, serial: 4488f665): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  965.7ms (avg),  760.0ms (min)
+	Total data length: 58165 bytes (overhead: 1.18%)
+	Playback length: 0m:06.740s
+	Average bitrate: 69.04 kbit/s, w/o overhead: 68.22 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample06_b05e9d0ca9fa03bc46191299c1bae645.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample06_b05e9d0ca9fa03bc46191299c1bae645.ogg"...
+
+New logical stream (#1, serial: 0b2be1da): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 15257 bytes (overhead: 24.4%)
+	Playback length: 0m:06.155s
+	Average bitrate: 19.83 kbit/s, w/o overhead: 14.99 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample06_b2f157ef91eaef1e2778a9b37326e3ef.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample06_b2f157ef91eaef1e2778a9b37326e3ef.ogg"...
+
+New logical stream (#1, serial: 3976cb1f): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  871.4ms (avg),  100.0ms (min)
+	Total data length: 52475 bytes (overhead: 1.26%)
+	Playback length: 0m:06.080s
+	Average bitrate: 69.05 kbit/s, w/o overhead: 68.18 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample06_fb64e39c9934c818b378a0532c38f50f.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample06_fb64e39c9934c818b378a0532c38f50f.ogg"...
+
+New logical stream (#1, serial: c7527065): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  920.0ms (avg),  440.0ms (min)
+	Total data length: 53743 bytes (overhead: 1.22%)
+	Playback length: 0m:06.419s
+	Average bitrate: 66.97 kbit/s, w/o overhead: 66.15 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample07_5574802a9f1816ded504abaccbd6ea79.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample07_5574802a9f1816ded504abaccbd6ea79.ogg"...
+
+New logical stream (#1, serial: 644413ad): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 18047 bytes (overhead: 23.9%)
+	Playback length: 0m:07.395s
+	Average bitrate: 19.52 kbit/s, w/o overhead: 14.86 kbit/s
+Logical stream 1 ended
+WARNING: illegally placed page(s) for logical stream 1
+This indicates a corrupt Ogg file: Page found for stream after EOS flag.
+d:\tmp\___flash\voip\8330212146081325028\samples\sample14_1610bcfe3d4a5409ca90463ea8c0ef8f.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample14_1610bcfe3d4a5409ca90463ea8c0ef8f.ogg"...
+
+New logical stream (#1, serial: e7d5abe2): type opus
+Encoded with libopus 1.3
+WARNING: EOS not set on stream 1 (normal for live streams)
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  946.7ms (avg),  200.0ms (min)
+	Total data length: 54710 bytes (overhead: 3.58%)
+	Playback length: 0m:14.193s
+	Average bitrate: 30.84 kbit/s, w/o overhead: 29.73 kbit/s
+d:\tmp\___flash\voip\8330212146081325028\samples\sample14_7e30ddf39168a4ea0579f35d3baac0d9.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample14_7e30ddf39168a4ea0579f35d3baac0d9.ogg"...
+
+New logical stream (#1, serial: 53d97ce2): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 34472 bytes (overhead: 22.3%)
+	Playback length: 0m:14.607s
+	Average bitrate: 18.88 kbit/s, w/o overhead: 14.68 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample14_9406179a57e6d882cba5a5c23c7e7e4f.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample14_9406179a57e6d882cba5a5c23c7e7e4f.ogg"...
+
+New logical stream (#1, serial: 53722fb1): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 33826 bytes (overhead: 22.1%)
+	Playback length: 0m:14.171s
+	Average bitrate: 19.09 kbit/s, w/o overhead: 14.87 kbit/s
+Logical stream 1 ended
+WARNING: illegally placed page(s) for logical stream 1
+This indicates a corrupt Ogg file: Page found for stream after EOS flag.
+d:\tmp\___flash\voip\8330212146081325028\samples\sample14_9688780a39194d29f54f79bb9a6a9910.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample14_9688780a39194d29f54f79bb9a6a9910.ogg"...
+
+New logical stream (#1, serial: 65abdefe): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 33638 bytes (overhead: 22.1%)
+	Playback length: 0m:14.059s
+	Average bitrate: 19.14 kbit/s, w/o overhead: 14.92 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample15_03c54b861f72cce82609dd3acbaa85fb.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample15_03c54b861f72cce82609dd3acbaa85fb.ogg"...
+
+New logical stream (#1, serial: 7823729d): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 34539 bytes (overhead: 22.4%)
+	Playback length: 0m:14.719s
+	Average bitrate: 18.77 kbit/s, w/o overhead: 14.57 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample15_1a7df29173d06cd4119ea338d1e8e05c.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample15_1a7df29173d06cd4119ea338d1e8e05c.ogg"...
+
+New logical stream (#1, serial: 0e680cd6): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 35855 bytes (overhead: 22.2%)
+	Playback length: 0m:15.187s
+	Average bitrate: 18.89 kbit/s, w/o overhead: 14.7 kbit/s
+Logical stream 1 ended
+WARNING: illegally placed page(s) for logical stream 1
+This indicates a corrupt Ogg file: Page found for stream after EOS flag.
+d:\tmp\___flash\voip\8330212146081325028\samples\sample15_4a30a6c03e108b963d0afe692558e3ec.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample15_4a30a6c03e108b963d0afe692558e3ec.ogg"...
+
+New logical stream (#1, serial: ba77311f): type opus
+Encoded with libopus 1.3
+WARNING: EOS not set on stream 1 (normal for live streams)
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  973.8ms (avg),  580.0ms (min)
+	Total data length: 60708 bytes (overhead: 3.38%)
+	Playback length: 0m:15.573s
+	Average bitrate: 31.19 kbit/s, w/o overhead: 30.13 kbit/s
+d:\tmp\___flash\voip\8330212146081325028\samples\sample15_64900b3ffd4aa70f5e5d9641952094e8.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample15_64900b3ffd4aa70f5e5d9641952094e8.ogg"...
+
+New logical stream (#1, serial: 28455732): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 37018 bytes (overhead: 22.3%)
+	Playback length: 0m:15.868s
+	Average bitrate: 18.66 kbit/s, w/o overhead: 14.5 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample15_75836e80be4f3370e27e3f17bbce3433.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample15_75836e80be4f3370e27e3f17bbce3433.ogg"...
+
+New logical stream (#1, serial: fd5ce9fe): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  967.5ms (avg),  480.0ms (min)
+	Total data length: 132933 bytes (overhead: 1.04%)
+	Playback length: 0m:15.459s
+	Average bitrate: 68.79 kbit/s, w/o overhead: 68.07 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample15_8082d542b11fb2be2869f8f45b292373.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample15_8082d542b11fb2be2869f8f45b292373.ogg"...
+
+New logical stream (#1, serial: 3bfc01f3): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  970.0ms (avg),  520.0ms (min)
+	Total data length: 132276 bytes (overhead: 1.04%)
+	Playback length: 0m:15.500s
+	Average bitrate: 68.27 kbit/s, w/o overhead: 67.56 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample15_a5c5e22bcb1d4585beba504d73b6cc99.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample15_a5c5e22bcb1d4585beba504d73b6cc99.ogg"...
+
+New logical stream (#1, serial: 45955c0e): type opus
+Encoded with libopus 1.3
+WARNING: EOS not set on stream 1 (normal for live streams)
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  991.3ms (avg),  860.0ms (min)
+	Total data length: 60986 bytes (overhead: 3.39%)
+	Playback length: 0m:15.853s
+	Average bitrate: 30.77 kbit/s, w/o overhead: 29.73 kbit/s
+d:\tmp\___flash\voip\8330212146081325028\samples\sample15_c38cd5c611532af5e79ed0958c415880.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample15_c38cd5c611532af5e79ed0958c415880.ogg"...
+
+New logical stream (#1, serial: b7b4370c): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  972.5ms (avg),  560.0ms (min)
+	Total data length: 130859 bytes (overhead: 1.09%)
+	Playback length: 0m:15.539s
+	Average bitrate: 67.37 kbit/s, w/o overhead: 66.63 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample15_d4cdbff1b70c60a2fd8fc54f26f55c23.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample15_d4cdbff1b70c60a2fd8fc54f26f55c23.ogg"...
+
+New logical stream (#1, serial: 7a947931): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 34832 bytes (overhead: 22.7%)
+	Playback length: 0m:15.075s
+	Average bitrate: 18.48 kbit/s, w/o overhead: 14.29 kbit/s
+Logical stream 1 ended
+WARNING: illegally placed page(s) for logical stream 1
+This indicates a corrupt Ogg file: Page found for stream after EOS flag.
+d:\tmp\___flash\voip\8330212146081325028\samples\sample16_28b7af27b8464f83f547e385893de318.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample16_28b7af27b8464f83f547e385893de318.ogg"...
+
+New logical stream (#1, serial: 493537cc): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 40239 bytes (overhead: 21.4%)
+	Playback length: 0m:16.640s
+	Average bitrate: 19.35 kbit/s, w/o overhead: 15.2 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample16_2ee9c6bcc64a0b6566f8e9ec99b20ada.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample16_2ee9c6bcc64a0b6566f8e9ec99b20ada.ogg"...
+
+New logical stream (#1, serial: c18ee7b5): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  955.3ms (avg),  240.0ms (min)
+	Total data length: 133680 bytes (overhead: 1.12%)
+	Playback length: 0m:16.219s
+	Average bitrate: 65.93 kbit/s, w/o overhead: 65.19 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample16_450f0cecc3c7003c6fbc3a10f4712aa4.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample16_450f0cecc3c7003c6fbc3a10f4712aa4.ogg"...
+
+New logical stream (#1, serial: 2b7db462): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 37486 bytes (overhead: 22.2%)
+	Playback length: 0m:15.979s
+	Average bitrate: 18.77 kbit/s, w/o overhead: 14.6 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample16_5d5ba5774b0b215e83f8099e87cbe7e2.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample16_5d5ba5774b0b215e83f8099e87cbe7e2.ogg"...
+
+New logical stream (#1, serial: 3ed388aa): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  942.4ms (avg),   20.0ms (min)
+	Total data length: 135892 bytes (overhead: 1.08%)
+	Playback length: 0m:16.000s
+	Average bitrate: 67.95 kbit/s, w/o overhead: 67.21 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample17_0d1f6a407f028a451f3a6a90098a9300.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample17_0d1f6a407f028a451f3a6a90098a9300.ogg"...
+
+New logical stream (#1, serial: 65d0f59d): type opus
+Encoded with libopus 1.3
+WARNING: EOS not set on stream 1 (normal for live streams)
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  977.8ms (avg),  600.0ms (min)
+	Total data length: 68522 bytes (overhead: 3.22%)
+	Playback length: 0m:17.593s
+	Average bitrate: 31.16 kbit/s, w/o overhead: 30.15 kbit/s
+d:\tmp\___flash\voip\8330212146081325028\samples\sample17_350b04a3821a66a8bcd78a15588c8191.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample17_350b04a3821a66a8bcd78a15588c8191.ogg"...
+
+New logical stream (#1, serial: f1b23ec7): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  987.8ms (avg),  780.0ms (min)
+	Total data length: 165643 bytes (overhead: 0.965%)
+	Playback length: 0m:17.759s
+	Average bitrate: 74.61 kbit/s, w/o overhead: 73.89 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample17_fd738975ea9a518e48680e3c33ee4c05.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample17_fd738975ea9a518e48680e3c33ee4c05.ogg"...
+
+New logical stream (#1, serial: 59bc38ae): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 39829 bytes (overhead: 22.1%)
+	Playback length: 0m:16.995s
+	Average bitrate: 18.75 kbit/s, w/o overhead: 14.61 kbit/s
+Logical stream 1 ended
+WARNING: illegally placed page(s) for logical stream 1
+This indicates a corrupt Ogg file: Page found for stream after EOS flag.
+d:\tmp\___flash\voip\8330212146081325028\samples\sample60_0a0e77fef9c11ec30dfdf1461d4eefe2.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample60_0a0e77fef9c11ec30dfdf1461d4eefe2.ogg"...
+
+New logical stream (#1, serial: d1de31f3): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  990.8ms (avg),  440.0ms (min)
+	Total data length: 505273 bytes (overhead: 1.02%)
+	Playback length: 1m:00.419s
+	Average bitrate: 66.9 kbit/s, w/o overhead: 66.22 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample60_35939af851861d564d63bd374ffd1560.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample60_35939af851861d564d63bd374ffd1560.ogg"...
+
+New logical stream (#1, serial: 23238596): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  992.8ms (avg),  560.0ms (min)
+	Total data length: 484068 bytes (overhead: 1.07%)
+	Playback length: 1m:00.539s
+	Average bitrate: 63.97 kbit/s, w/o overhead: 63.28 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample60_4c9973a21cbfa19ba71506093e90f3a7.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample60_4c9973a21cbfa19ba71506093e90f3a7.ogg"...
+
+New logical stream (#1, serial: 8304f605): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  993.4ms (avg),  600.0ms (min)
+	Total data length: 501321 bytes (overhead: 0.985%)
+	Playback length: 1m:00.579s
+	Average bitrate: 66.2 kbit/s, w/o overhead: 65.55 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample60_6067be4f4008b500aff2b3b682e7131b.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample60_6067be4f4008b500aff2b3b682e7131b.ogg"...
+
+New logical stream (#1, serial: 38c02257): type opus
+Encoded with libopus 1.3
+WARNING: EOS not set on stream 1 (normal for live streams)
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  988.9ms (avg),  320.0ms (min)
+	Total data length: 238993 bytes (overhead: 2.3%)
+	Playback length: 1m:00.313s
+	Average bitrate: 31.7 kbit/s, w/o overhead: 30.97 kbit/s
+d:\tmp\___flash\voip\8330212146081325028\samples\sample60_790f3769e5288ad46c0688791d559bca.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample60_790f3769e5288ad46c0688791d559bca.ogg"...
+
+New logical stream (#1, serial: 409c39f5): type opus
+Encoded with libopus 1.3
+WARNING: EOS not set on stream 1 (normal for live streams)
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  994.4ms (avg),  660.0ms (min)
+	Total data length: 233639 bytes (overhead: 2.36%)
+	Playback length: 1m:00.653s
+	Average bitrate: 30.82 kbit/s, w/o overhead: 30.09 kbit/s
+d:\tmp\___flash\voip\8330212146081325028\samples\sample60_8929a3305be7905248b12700091361c5.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample60_8929a3305be7905248b12700091361c5.ogg"...
+
+New logical stream (#1, serial: 72c51c96): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 140854 bytes (overhead: 20.4%)
+	Playback length: 0m:59.783s
+	Average bitrate: 18.85 kbit/s, w/o overhead: 15 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample60_93c07c0d1b3843e80ee44dce188bf2d6.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample60_93c07c0d1b3843e80ee44dce188bf2d6.ogg"...
+
+New logical stream (#1, serial: 9ccc8ad6): type opus
+Encoded with libopus 1.3
+WARNING: EOS not set on stream 1 (normal for live streams)
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  985.6ms (avg),  120.0ms (min)
+	Total data length: 231398 bytes (overhead: 2.37%)
+	Playback length: 1m:00.113s
+	Average bitrate: 30.79 kbit/s, w/o overhead: 30.06 kbit/s
+d:\tmp\___flash\voip\8330212146081325028\samples\sample60_a9ec34d1a70c593ca1f0036dcf0da7ca.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample60_a9ec34d1a70c593ca1f0036dcf0da7ca.ogg"...
+
+New logical stream (#1, serial: 000018be): type opus
+Encoded with libopus unknown, WinRT encoder by Lorenzo Rossoni
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:     20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Total data length: 455708 bytes (overhead: 18.8%)
+	Playback length: 1m:00.449s
+	Average bitrate: 60.31 kbit/s, w/o overhead: 49 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample60_bf6bb62a74e210c44b6a256417a8193a.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample60_bf6bb62a74e210c44b6a256417a8193a.ogg"...
+
+New logical stream (#1, serial: 4b790b4b): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 140158 bytes (overhead: 20.6%)
+	Playback length: 1m:00.140s
+	Average bitrate: 18.64 kbit/s, w/o overhead: 14.8 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample60_c70f8ed50f21ebc03588c87900db520d.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample60_c70f8ed50f21ebc03588c87900db520d.ogg"...
+
+New logical stream (#1, serial: 37749108): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 137875 bytes (overhead: 21%)
+	Playback length: 1m:00.251s
+	Average bitrate: 18.31 kbit/s, w/o overhead: 14.46 kbit/s
+Logical stream 1 ended
+WARNING: illegally placed page(s) for logical stream 1
+This indicates a corrupt Ogg file: Page found for stream after EOS flag.
+d:\tmp\___flash\voip\8330212146081325028\samples\sample61_69ba168f9b52cba70e1ce8046c0285f1.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample61_69ba168f9b52cba70e1ce8046c0285f1.ogg"...
+
+New logical stream (#1, serial: 6c2dc37a): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  996.1ms (avg),  760.0ms (min)
+	Total data length: 581611 bytes (overhead: 0.894%)
+	Playback length: 1m:01.739s
+	Average bitrate: 75.36 kbit/s, w/o overhead: 74.69 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample61_d4d716ffffc14ac5aea11d6ee1eccb2b.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample61_d4d716ffffc14ac5aea11d6ee1eccb2b.ogg"...
+
+New logical stream (#1, serial: 6f574767): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  991.6ms (avg),  480.0ms (min)
+	Total data length: 518042 bytes (overhead: 0.987%)
+	Playback length: 1m:01.460s
+	Average bitrate: 67.43 kbit/s, w/o overhead: 66.77 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample62_747b02d1c0aebd7eebe02b9c0b7a71ba.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample62_747b02d1c0aebd7eebe02b9c0b7a71ba.ogg"...
+
+New logical stream (#1, serial: cdbc2997): type opus
+Encoded with Lavf57.83.100
+User comments section follows...
+	encoder=Lavf57.83.100
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 48000 Hz
+	Packet duration:   20.0ms (max),   20.0ms (avg),   20.0ms (min)
+	Page duration:   1000.0ms (max),  987.0ms (avg),  180.0ms (min)
+	Total data length: 572770 bytes (overhead: 0.912%)
+	Playback length: 1m:02.159s
+	Average bitrate: 73.72 kbit/s, w/o overhead: 73.04 kbit/s
+Logical stream 1 ended
+d:\tmp\___flash\voip\8330212146081325028\samples\sample62_f875782337e56d53cd42c59d7cb044fc.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample62_f875782337e56d53cd42c59d7cb044fc.ogg"...
+
+New logical stream (#1, serial: 4a07833b): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 148042 bytes (overhead: 20.2%)
+	Playback length: 1m:02.171s
+	Average bitrate: 19.05 kbit/s, w/o overhead: 15.2 kbit/s
+Logical stream 1 ended
+WARNING: illegally placed page(s) for logical stream 1
+This indicates a corrupt Ogg file: Page found for stream after EOS flag.
+d:\tmp\___flash\voip\8330212146081325028\samples\sample63_8299254189168351907467c8b2ae7d33.ogg
+Processing file "d:\tmp\___flash\voip\8330212146081325028\samples\sample63_8299254189168351907467c8b2ae7d33.ogg"...
+
+New logical stream (#1, serial: 40997864): type opus
+Encoded with libopus unknown-fixed
+Opus stream 1:
+	Pre-skip: 312
+	Playback gain: 0 dB
+	Channels: 1
+	Original sample rate: 16000 Hz
+	Packet duration:   60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Page duration:     60.0ms (max),   60.0ms (avg),   60.0ms (min)
+	Total data length: 148171 bytes (overhead: 20.7%)
+	Playback length: 1m:03.756s
+	Average bitrate: 18.59 kbit/s, w/o overhead: 14.75 kbit/s
+Logical stream 1 ended
