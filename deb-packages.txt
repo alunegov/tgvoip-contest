@@ -1,0 +1,4 @@
+libogg0
+libopus0
+libopusfile0
+? openssl
