@@ -14,30 +14,30 @@ add_subdirectory(../opusfile-writer opusfile-writer)
 
 set(source_list "main.cpp")
 
-add_executable(${PROJECT_NAME} ${source_list})
+add_executable(tgvoipcall ${source_list})
 
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 14)
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
+set_property(TARGET tgvoipcall PROPERTY CXX_STANDARD 14)
+set_property(TARGET tgvoipcall PROPERTY CXX_STANDARD_REQUIRED ON)
 
-target_include_directories(${PROJECT_NAME}
+target_include_directories(tgvoipcall
     PRIVATE "../../../Work3/libtgvoip"
 )
 
-target_compile_definitions(${PROJECT_NAME}
+target_compile_definitions(tgvoipcall
     PRIVATE TGVOIP_USE_CALLBACK_AUDIO_IO
 )
 
 if(MSVC)
-    target_compile_options(${PROJECT_NAME}
+    target_compile_options(tgvoipcall
         PRIVATE /W4 /MTd
     )
 else()
-    target_compile_options(${PROJECT_NAME}
+    target_compile_options(tgvoipcall
         PRIVATE -Wall -Wextra
     )
 endif()
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(tgvoipcall
     PRIVATE ${OPENSSL_CRYPTO_LIBRARY}
     #PRIVATE ${TGVOIP_LIB}
     PRIVATE opusfile-reader
@@ -45,13 +45,13 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE wavefile-writer
 )
 if(MSVC)
-    target_link_libraries(${PROJECT_NAME}
+    target_link_libraries(tgvoipcall
         PRIVATE ws2_32
         PRIVATE winmm
         PRIVATE Iphlpapi
     )
 else()
-    target_link_libraries(${PROJECT_NAME}
+    target_link_libraries(tgvoipcall
         PRIVATE pthread
     )
 endif()
