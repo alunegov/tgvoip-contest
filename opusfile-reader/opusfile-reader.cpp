@@ -5,9 +5,6 @@
 
 #include <opusfile.h>
 
-OpusFileReader::OpusFileReader() {
-}
-
 OpusFileReader::~OpusFileReader() {
     if (file != nullptr) {
         op_free((OggOpusFile *) file);

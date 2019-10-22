@@ -6,7 +6,7 @@
 
 class OpusFileReader {
 public:
-    OpusFileReader();
+    OpusFileReader() = default;
     ~OpusFileReader();
     bool Open(const std::string& fileName);
     bool Read(int16_t* data, size_t len);

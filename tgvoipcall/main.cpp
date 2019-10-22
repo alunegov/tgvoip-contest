@@ -10,7 +10,9 @@
 
 #include <opusfile-reader.h>
 #include <opusfile-writer.h>
+#ifdef TGVOIPCALL_WAVE_OUTPUT
 #include <wavefile-writer.h>
+#endif
 
 using namespace tgvoip;
 
@@ -41,7 +43,9 @@ int main(int argc, const char* argv[]) {
 
         OpusFileReader r;
         OpusFileWriter w;
+#ifdef TGVOIPCALL_WAVE_OUTPUT
         WaveFileWriter waveW;
+#endif
 
         if (!r.Open(conf.InputFileName)) {
             return -2;
@@ -49,9 +53,11 @@ int main(int argc, const char* argv[]) {
         if (!w.Create(conf.OutputFileName)) {
             return -3;
         }
+#ifdef TGVOIPCALL_WAVE_OUTPUT
         if (!waveW.Create(conf.OutputFileName + ".wav")) {
             return -4;
         }
+#endif
 
         const auto serverConfig = readConfig(conf.ConfigFileName);
         ServerConfig::GetSharedInstance()->Update(serverConfig);
@@ -82,7 +88,9 @@ int main(int argc, const char* argv[]) {
         const auto output = [&](int16_t* data, size_t len) {
             //cout << "output got " << len << std::endl;
             w.Write(data, len);
+#ifdef TGVOIPCALL_WAVE_OUTPUT
             waveW.Write(data, len);
+#endif
         };
         c->SetAudioDataCallbacks(input, output);
 
@@ -106,14 +114,16 @@ int main(int argc, const char* argv[]) {
 
         c->Stop();
 
-        w.Commit();
-        waveW.Commit();
-
         if (res == 0) {
             cout << c->GetDebugLog() << std::endl;
         }
 
         c.reset(nullptr);
+
+        w.Commit();
+#ifdef TGVOIPCALL_WAVE_OUTPUT
+        waveW.Commit();
+#endif
 
         return res;
     } catch (std::exception& e) {

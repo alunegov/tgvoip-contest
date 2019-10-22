@@ -5,14 +5,14 @@
 
 class WaveFileWriter {
 public:
-    WaveFileWriter();
+    WaveFileWriter() = default;
     ~WaveFileWriter();
     bool Create(const std::string& fileName);
     bool Write(int16_t* data, size_t len);
     bool Commit();
 private:
     FILE* file{nullptr};
-    int dataBytesWritten{0};
+    size_t dataBytesWritten{0};
     bool isCommited{false};
 };
 

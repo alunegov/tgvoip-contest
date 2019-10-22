@@ -6,7 +6,7 @@
 
 class WaveFileReader {
 public:
-    WaveFileReader();
+    WaveFileReader() = default;
     ~WaveFileReader();
     bool Open(const std::string& fileName);
     bool Read(int16_t* data, size_t len);

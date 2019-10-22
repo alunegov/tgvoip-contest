@@ -9,7 +9,7 @@ struct EncData {
 
 class OpusFileWriter {
 public:
-    OpusFileWriter();
+    OpusFileWriter() = default;
     ~OpusFileWriter();
     bool Create(const std::string& fileName);
     bool Write(int16_t* data, size_t len);

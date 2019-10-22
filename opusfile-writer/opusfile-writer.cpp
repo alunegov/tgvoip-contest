@@ -4,9 +4,6 @@
 
 #include <opusenc.h>
 
-OpusFileWriter::OpusFileWriter() {
-}
-
 OpusFileWriter::~OpusFileWriter() {
     if (encData.enc != nullptr) {
         Commit();

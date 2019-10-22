@@ -1,10 +1,7 @@
 #include <wavefile-writer.h>
 
 #include <cassert>
-#include <iostream>
-
-WaveFileWriter::WaveFileWriter() {
-}
+#include <cstring>
 
 WaveFileWriter::~WaveFileWriter() {
     if (file != nullptr) {
@@ -59,8 +56,7 @@ bool WaveFileWriter::Commit() {
         return false;
     }
 
-    WaveHeader hdr;
-    memset(&hdr, 0, sizeof(hdr));
+    WaveHeader hdr{};
     hdr.Marker1[0] = 'R';hdr.Marker1[1] = 'I';hdr.Marker1[2] = 'F';hdr.Marker1[3] = 'F';
     hdr.BytesFollowing = dataBytesWritten + 36;
     hdr.Marker2[0] = 'W';hdr.Marker2[1] = 'A';hdr.Marker2[2] = 'V';hdr.Marker2[3] = 'E';

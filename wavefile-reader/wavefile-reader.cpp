@@ -3,9 +3,6 @@
 #include <cassert>
 #include <cstring>
 
-WaveFileReader::WaveFileReader() {
-}
-
 WaveFileReader::~WaveFileReader() {
     if (file != nullptr) {
         fclose(file);
@@ -20,7 +17,7 @@ bool WaveFileReader::Open(const std::string& fileName) {
         return false;
     }
 
-    WaveHeader hdr;
+    WaveHeader hdr{};
     auto ret = fread(&hdr, sizeof(hdr), 1, file);
     if (ret != 1) {
         return false;

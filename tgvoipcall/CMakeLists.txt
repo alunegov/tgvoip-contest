@@ -25,6 +25,7 @@ target_include_directories(tgvoipcall
 
 target_compile_definitions(tgvoipcall
     PRIVATE TGVOIP_USE_CALLBACK_AUDIO_IO
+    PRIVATE TGVOIPCALL_WAVE_OUTPUT
 )
 
 if(MSVC)
@@ -39,7 +40,7 @@ endif()
 
 target_link_libraries(tgvoipcall
     PRIVATE ${OPENSSL_CRYPTO_LIBRARY}
-    #PRIVATE ${TGVOIP_LIB}
+    PRIVATE ${TGVOIP_LIB}
     PRIVATE opusfile-reader
     PRIVATE opusfile-writer
     PRIVATE wavefile-writer
