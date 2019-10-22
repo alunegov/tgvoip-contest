@@ -16,5 +16,5 @@ public:
     bool Commit();
 private:
     EncData encData;
-    bool isCommited{true};
+    bool isCommited{false};
 };

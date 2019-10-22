@@ -39,5 +39,5 @@ bool WaveFileReader::Read(int16_t* data, size_t len) {
         memset(&data[n_read], 0, (len - n_read) * sizeof(int16_t));
     }
 
-    return n_read == 0;
+    return n_read != 0;
 }

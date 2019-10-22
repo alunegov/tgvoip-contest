@@ -13,7 +13,7 @@ public:
 private:
     FILE* file{nullptr};
     int dataBytesWritten{0};
-    bool isCommited{true};
+    bool isCommited{false};
 };
 
 struct WaveHeader {

@@ -21,16 +21,17 @@ bool OpusFileWriter::Create(const std::string& fileName) {
     const auto rate{48000};
     const auto chan{1};
 
-    int ret;
-
     OggOpusComments* comments = ope_comments_create();
-    encData.enc = ope_encoder_create_file(fileName.c_str(), comments, rate, chan, (chan > 8) ? 255 : chan > 2, &ret);
+
+    encData.enc = ope_encoder_create_file(fileName.c_str(), comments, rate, chan, (chan > 8) ? 255 : chan > 2, nullptr);
+
     ope_comments_destroy(comments);
+
     if (encData.enc == nullptr) {
         return false;
     }
 
-    ret = ope_encoder_ctl((OggOpusEnc*)encData.enc, OPUS_SET_BITRATE(64000));
+    auto ret = ope_encoder_ctl((OggOpusEnc*)encData.enc, OPUS_SET_BITRATE(64000));
     if (ret != OPE_OK) {
         return false;
     }
