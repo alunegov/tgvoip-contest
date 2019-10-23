@@ -3,10 +3,6 @@
 #include <cstdint>
 #include <string>
 
-struct EncData {
-    void* enc{nullptr};
-};
-
 class OpusFileWriter {
 public:
     OpusFileWriter() = default;
@@ -15,6 +11,6 @@ public:
     bool Write(int16_t* data, size_t len);
     bool Commit();
 private:
-    EncData encData;
+    void* enc{nullptr};
     bool isCommited{false};
 };

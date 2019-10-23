@@ -14,6 +14,12 @@ target_include_directories(wavefile-reader
 )
 
 if(MSVC)
+    target_compile_definitions(wavefile-reader
+        PRIVATE _CRT_SECURE_NO_WARNINGS
+    )
+endif()
+
+if(MSVC)
     target_compile_options(wavefile-reader
         PRIVATE /W4 /MTd
     )

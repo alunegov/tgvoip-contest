@@ -21,6 +21,9 @@ int main(int argc, const char** argv) {
 
 std::pair<std::string, std::string> parseArgs(int argc, const char** argv) {
     if (argc == 1) {
+        std::cout << "Usage: tgvoiprate /path/to/sound_A.opus /path/to/sound_output_A.opus" << std::endl;
+        std::cout << "Will use defaults for now" << std::endl;
+
         return std::make_pair("ref.ogg", "test.ogg");
     }
 

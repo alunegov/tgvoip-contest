@@ -48,13 +48,17 @@ int main(int argc, const char* argv[]) {
 #endif
 
         if (!r.Open(conf.InputFileName)) {
+            cerr << "Error opening " << conf.InputFileName << std::endl;
             return -2;
         }
         if (!w.Create(conf.OutputFileName)) {
+            cerr << "Error creating " << conf.OutputFileName << std::endl;
             return -3;
         }
 #ifdef TGVOIPCALL_WAVE_OUTPUT
-        if (!waveW.Create(conf.OutputFileName + ".wav")) {
+        const auto wavOutputFileName{conf.OutputFileName + ".wav"};
+        if (!waveW.Create(wavOutputFileName)) {
+            cerr << "Error creating " << wavOutputFileName << std::endl;
             return -4;
         }
 #endif
@@ -68,13 +72,14 @@ int main(int argc, const char* argv[]) {
         c->SetRemoteEndpoints(endpoints, Conf::AllowP2p, Conf::ConnMaxLayer);
 
         VoIPController::Config controllerConfig;
+        controllerConfig.initTimeout = 7;
+        controllerConfig.recvTimeout = 4;
         controllerConfig.dataSaving = DATA_SAVING_NEVER;
         controllerConfig.enableAEC = true;
         controllerConfig.enableNS = true;
         controllerConfig.enableAGC = true;
+        controllerConfig.enableCallUpgrade = false;
         controllerConfig.enableVolumeControl = true;
-        controllerConfig.initTimeout = 7;
-        controllerConfig.recvTimeout = 4;
         c->SetConfig(controllerConfig);
 
         unsigned char encKey[256];
@@ -82,11 +87,12 @@ int main(int argc, const char* argv[]) {
         c->SetEncryptionKey((char*)(encKey), conf.IsOutgoing);
 
         const auto input = [&](int16_t* data, size_t len) {
-            //cout << "input return " << len << std::endl;
+            //cout << "input produce " << len << std::endl;
             r.Read(data, len);
         };
         const auto output = [&](int16_t* data, size_t len) {
             //cout << "output got " << len << std::endl;
+            // TODO: don't write all zero points in data (produced by read on other end in case of eof)?
             w.Write(data, len);
 #ifdef TGVOIPCALL_WAVE_OUTPUT
             waveW.Write(data, len);
@@ -102,7 +108,8 @@ int main(int argc, const char* argv[]) {
         while (true) {
             std::this_thread::sleep_for(std::chrono::milliseconds(333));
             if (c->GetConnectionState() == STATE_FAILED) {
-                cerr << c->GetDebugString() << std::endl;
+                cerr << "Connection failed (timeout)" << std::endl;
+                cerr << c->GetDebugLog() << std::endl;
                 res = -1;
                 break;
             }
@@ -118,15 +125,23 @@ int main(int argc, const char* argv[]) {
             cout << c->GetDebugLog() << std::endl;
         }
 
+        // will stop encoder and decoder (and AudioDataCallbacks)
         c.reset(nullptr);
 
-        w.Commit();
+        if (!w.Commit()) {
+            cerr << "Error commiting " << conf.OutputFileName << std::endl;
+            res = -5;
+        }
 #ifdef TGVOIPCALL_WAVE_OUTPUT
-        waveW.Commit();
+        if (!waveW.Commit()) {
+            cerr << "Error commiting " << wavOutputFileName << std::endl;
+            res = -5;
+        }
 #endif
+        // TODO: call dtors of r, w, waveW to catch their errors?
 
         return res;
-    } catch (std::exception& e) {
+    } catch (const std::exception& e) {
         cerr << e.what();
         return -13;
     }
@@ -138,6 +153,9 @@ Conf parseArgs(int argc, const char* argv[]) {
     Conf res;
 
     if (argc == 1) {
+        std::cout << "Usage: tgvoipcall reflector:port tag_caller_hex -k encryption_key_hex -i /path/to/sound_A.opus -o /path/to/sound_output_B.opus -c /path/to/config.json -r caller|callee" << std::endl;
+        std::cout << "Will use defaults for now" << std::endl;
+
         res.AddrIp = "134.209.178.88";
         res.AddrPort = 553;
         res.Tag = "304b57e5dcc8298dec3f13089006a8bb";

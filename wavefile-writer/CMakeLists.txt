@@ -14,6 +14,12 @@ target_include_directories(wavefile-writer
 )
 
 if(MSVC)
+    target_compile_definitions(wavefile-writer
+        PRIVATE _CRT_SECURE_NO_WARNINGS
+    )
+endif()
+
+if(MSVC)
     target_compile_options(wavefile-writer
         PRIVATE /W4 /MTd
     )
