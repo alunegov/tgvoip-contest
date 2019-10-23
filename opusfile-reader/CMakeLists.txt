@@ -7,9 +7,9 @@ if(MSVC)
     find_library(OPUS_LIB opus.lib)
     find_library(OPUSFILE_LIB opusfile.lib)
 else()
-    find_library(OGG_LIB libogg.so HINTS /usr/lib/x86_64-linux-gnu)
-    find_library(OPUS_LIB libopus.so HINTS /usr/lib/x86_64-linux-gnu)
-    find_library(OPUSFILE_LIB libopusfile.so HINTS /usr/lib)
+    find_library(OGG_LIB libogg.a HINTS /usr/lib/x86_64-linux-gnu)
+    find_library(OPUS_LIB libopus.a HINTS /usr/lib/x86_64-linux-gnu)
+    find_library(OPUSFILE_LIB libopusfile.a HINTS /usr/lib)
 endif()
 find_path(OGG_INCLUDE ogg.h PATH_SUFFIXES ogg)
 find_path(OPUS_INCLUDE opus.h PATH_SUFFIXES opus)
@@ -41,9 +41,9 @@ else()
 endif()
 
 target_link_libraries(opusfile-reader
-    INTERFACE ${OGG_LIB}
-    INTERFACE ${OPUS_LIB}
     INTERFACE ${OPUSFILE_LIB}
+    INTERFACE ${OPUS_LIB}
+    INTERFACE ${OGG_LIB}
 )
 
 add_subdirectory(../wavefile-writer wavefile-writer)

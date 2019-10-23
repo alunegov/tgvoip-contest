@@ -1,4 +1,3 @@
-#include <array>
 #include <cassert>
 #include <iostream>
 #include <memory>
@@ -15,15 +14,17 @@ std::vector<double_t> calcBandsPower(int16_t* signal, size_t len) {
     auto imag = std::make_unique<double_t[]>(len);
     const auto spec_len{len / 2};
 
-    Rfft(signal, real.get(), imag.get(), len, mean, false);
+    std::vector<double_t> res;
+
+    if (!Rfft(signal, real.get(), imag.get(), len, mean, false)) {
+        return res;
+    }
 
     Cmplx_Ampl(real.get(), imag.get(), len, spec_len);
 
     // df = 1 / (dt * PointsCount) = RegFreq / PointsCount
     const auto df{48000.0 / len};
     const auto pointsInBand{FrequencyToIndex(100, df)};
-
-    std::vector<double_t> res;
 
     for (size_t i = 0; i < spec_len; i += pointsInBand) {
         const auto rms = Rms_RateFloat(&real.get()[i], pointsInBand, 1, 0, mean);
@@ -62,7 +63,7 @@ int main(int argc, const char** argv) {
         // TODO: call dtors of refR, testR to catch their errors?
 
         return 0;
-    } catch (std::exception& e) {
+    } catch (const std::exception& e) {
         std::cerr << e.what();
         return -13;
     }

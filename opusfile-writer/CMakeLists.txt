@@ -6,7 +6,7 @@ if(MSVC)
     find_library(OPUS_LIB opus.lib)
     find_library(OPUSENC_LIB opusenc.lib)
 else()
-    find_library(OPUS_LIB libopus.so HINTS /usr/lib/x86_64-linux-gnu)
+    find_library(OPUS_LIB libopus.a HINTS /usr/lib/x86_64-linux-gnu)
     find_library(OPUSENC_LIB libopusenc.a HINTS ../_ext/libopusenc/.libs)
 endif()
 find_path(OPUS_INCLUDE opus.h PATH_SUFFIXES opus)
@@ -36,8 +36,8 @@ else()
 endif()
 
 target_link_libraries(opusfile-writer
-    INTERFACE ${OPUS_LIB}
     INTERFACE ${OPUSENC_LIB}
+    INTERFACE ${OPUS_LIB}
 )
 
 add_subdirectory(../wavefile-reader wavefile-reader)
