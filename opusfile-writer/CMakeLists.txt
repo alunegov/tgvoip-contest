@@ -9,7 +9,8 @@ else()
     find_library(OPUS_LIB libopus.so HINTS /usr/lib/x86_64-linux-gnu)
     find_library(OPUSENC_LIB libopusenc.a HINTS ../_ext/libopusenc/.libs)
 endif()
-find_path(OPUS_INCLUDE opus.h HINTS /usr/include/opus)
+find_path(OPUS_INCLUDE opus.h PATH_SUFFIXES opus)
+find_path(OPUSENC_INCLUDE opusenc.h PATH_SUFFIXES opus)
 
 set(source_list "opusfile-writer.cpp" "opusfile-writer.h")
 
@@ -21,7 +22,7 @@ set_property(TARGET opusfile-writer PROPERTY CXX_STANDARD_REQUIRED ON)
 target_include_directories(opusfile-writer
     PUBLIC "."
     PRIVATE ${OPUS_INCLUDE}
-    PRIVATE "../_ext/libopusenc/include"
+    PRIVATE ${OPUSENC_INCLUDE}
 )
 
 if(MSVC)
