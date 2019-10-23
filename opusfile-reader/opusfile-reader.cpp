@@ -19,7 +19,10 @@ bool OpusFileReader::Open(const std::string& fileName) {
         return false;
     }
 
-    auto head = op_head((const OggOpusFile*)file, 0);
+    const auto head = op_head((const OggOpusFile*)file, 0);
+    assert(head->channel_count == 1);
+    assert(head->mapping_family == 0);
+
     old_li = -1;
     eof = false;
 
@@ -56,7 +59,9 @@ bool OpusFileReader::Read(int16_t* data, size_t len) {
         all_read += nb_read;
 
         if (li != old_li) {
-            auto head = op_head((const OggOpusFile*)file, li);
+            const auto head = op_head((const OggOpusFile*)file, li);
+            assert(head->channel_count == 1);
+            assert(head->mapping_family == 0);
         }
         old_li = li;
     }
@@ -68,6 +73,19 @@ bool OpusFileReader::Read(int16_t* data, size_t len) {
     eof = all_read == 0;
 
     return !eof;
+}
+
+bool OpusFileReader::Seek(int64_t pos) {
+    assert(file != nullptr);
+
+    const auto ret = op_pcm_seek((OggOpusFile*)file, pos);
+    if (ret != 0) {
+        return false;
+    }
+
+    eof = false;
+
+    return false;
 }
 
 bool OpusFileReader::Eof() const {

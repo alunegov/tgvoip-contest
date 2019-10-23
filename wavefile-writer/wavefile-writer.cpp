@@ -20,7 +20,7 @@ bool WaveFileWriter::Create(const std::string& fileName) {
         return false;
     }
 
-    auto ret = fseek(file, sizeof(WaveHeader), SEEK_SET);
+    const auto ret = fseek(file, sizeof(WaveHeader), SEEK_SET);
     if (ret != 0) {
         return false;
     }
@@ -33,7 +33,7 @@ bool WaveFileWriter::Write(int16_t* data, size_t len) {
     assert(!isCommited);
     assert(data != nullptr);
 
-    auto ret = fwrite(data, sizeof(int16_t), len, file);
+    const auto ret = fwrite(data, sizeof(int16_t), len, file);
 
     dataBytesWritten += sizeof(int16_t) * ret;
 

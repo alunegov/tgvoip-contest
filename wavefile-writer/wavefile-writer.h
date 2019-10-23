@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <string>
 
+// Little-endian only
 class WaveFileWriter {
 public:
     WaveFileWriter() = default;

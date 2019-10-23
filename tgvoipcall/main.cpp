@@ -138,6 +138,7 @@ int main(int argc, const char* argv[]) {
             res = -5;
         }
 #endif
+
         // TODO: call dtors of r, w, waveW to catch their errors?
 
         return res;

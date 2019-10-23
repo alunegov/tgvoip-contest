@@ -40,7 +40,7 @@ endif()
 
 target_link_libraries(tgvoipcall
     PRIVATE ${OPENSSL_CRYPTO_LIBRARY}
-    PRIVATE ${TGVOIP_LIB}
+    #PRIVATE ${TGVOIP_LIB}
     PRIVATE opusfile-reader
     PRIVATE opusfile-writer
     PRIVATE wavefile-writer

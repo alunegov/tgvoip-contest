@@ -19,7 +19,7 @@ bool OpusFileWriter::Create(const std::string& fileName) {
     const auto chan{1};
     const auto family{(chan > 8) ? 255 : chan > 2};
 
-    OggOpusComments* comments = ope_comments_create();
+    OggOpusComments* const comments = ope_comments_create();
 
     enc = ope_encoder_create_file(fileName.c_str(), comments, rate, chan, family, nullptr);
 
@@ -41,7 +41,7 @@ bool OpusFileWriter::Write(int16_t* data, size_t len) {
     assert(enc != nullptr);
     assert(!isCommited);
 
-    auto ret = ope_encoder_write((OggOpusEnc*)enc, data, len);
+    const auto ret = ope_encoder_write((OggOpusEnc*)enc, data, len);
     if (ret != OPE_OK) {
         return false;
     }
@@ -56,7 +56,8 @@ bool OpusFileWriter::Commit() {
         return true;
     }
 
-    auto ret = ope_encoder_drain((OggOpusEnc*)enc);
+    // TODO: fail on empty enc.streams
+    const auto ret = ope_encoder_drain((OggOpusEnc*)enc);
     if (ret != OPE_OK) {
         return false;
     }

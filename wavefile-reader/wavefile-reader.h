@@ -4,12 +4,14 @@
 #include <cstdint>
 #include <string>
 
+// Little-endian only
 class WaveFileReader {
 public:
     WaveFileReader() = default;
     ~WaveFileReader();
     bool Open(const std::string& fileName);
     bool Read(int16_t* data, size_t len);
+    bool Seek(int64_t pos);
 private:
     FILE* file{nullptr};
 };

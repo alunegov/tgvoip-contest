@@ -18,10 +18,13 @@ bool WaveFileReader::Open(const std::string& fileName) {
     }
 
     WaveHeader hdr{};
-    auto ret = fread(&hdr, sizeof(hdr), 1, file);
+    const auto ret = fread(&hdr, sizeof(hdr), 1, file);
     if (ret != 1) {
         return false;
     }
+    assert(hdr.Channels == 1);
+    assert(hdr.SampleRate == 48000);
+    assert(hdr.BitsPerSample == 16);
 
     return true;
 }
@@ -30,11 +33,18 @@ bool WaveFileReader::Read(int16_t* data, size_t len) {
     assert(file != nullptr);
     assert(data != nullptr);
 
-    const size_t n_read = fread(data, sizeof(int16_t), len, file);
+    const auto n_read = fread(data, sizeof(int16_t), len, file);
 
     if (n_read < len) {
         memset(&data[n_read], 0, (len - n_read) * sizeof(int16_t));
     }
 
-    return n_read != 0;
+    return n_read == len;
+}
+
+bool WaveFileReader::Seek(int64_t pos) {
+    assert(file != nullptr);
+
+    const auto fpos = sizeof(WaveHeader) + pos * sizeof(int16_t);
+    return fseek(file, (long)fpos, SEEK_SET) == 0;
 }
