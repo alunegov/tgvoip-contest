@@ -7,3 +7,6 @@
 [submodule "_ext/opus"]
 	path = _ext/opus
 	url = https://git.xiph.org/opus.git
+[submodule "_ext/ogg"]
+	path = _ext/ogg
+	url = https://github.com/xiph/ogg.git
