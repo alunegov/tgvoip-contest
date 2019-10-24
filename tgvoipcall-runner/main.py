@@ -13,7 +13,7 @@ def get_voip_api_answer(auth_token, call):
 
     return json.loads(contents)
 
-def start_process(api_answer, direction, file_name, out_dir):
+def start_process(api_answer, direction, infile_name, outfile_name, out_dir):
     endpoint = api_answer['result']['endpoints'][0]
 
     return subprocess.Popen(
@@ -21,8 +21,8 @@ def start_process(api_answer, direction, file_name, out_dir):
             '{0}:{1}'.format(endpoint['ip'], endpoint['port']),
             endpoint['peer_tags'][direction],
             '-k', api_answer['result']['encryption_key'],
-            '-i', file_name,
-            '-o', os.path.join(out_dir, 'out_{0}_{1}'.format(direction, os.path.basename(file_name))),
+            '-i', infile_name,
+            '-o', os.path.join(out_dir, 'out_{0}_{1}'.format(direction, os.path.basename(outfile_name))),
             '-c', os.path.join(out_dir, 'config.json'),
             '-r', direction,
         ],
@@ -43,8 +43,8 @@ def do_call(auth_token, call, caller_file_name, callee_file_name, out_dir, logge
     with open(os.path.join(out_dir, 'config.json'), 'w') as f:
         f.write(json.dumps(api_answer['result']['config']))
 
-    callerSubProcess = start_process(api_answer, 'caller', caller_file_name, out_dir)
-    calleeSubProcess = start_process(api_answer, 'callee', callee_file_name, out_dir)
+    callerSubProcess = start_process(api_answer, 'caller', caller_file_name, callee_file_name, out_dir)
+    calleeSubProcess = start_process(api_answer, 'callee', callee_file_name, caller_file_name, out_dir)
 
     caller_outs, caller_errs = callerSubProcess.communicate()
     callee_outs, callee_errs = calleeSubProcess.communicate()
@@ -73,7 +73,6 @@ if len(sys.argv) > 3:
 else:
     call = random.randint(1, 1000000)
 
-samples_duration = [5, 15, 60]
 samples_5 = [
 	'samples/sample05_0bb3646f15e8dc61f525f40f2884de57.ogg',
 	'samples/sample05_7f3d7554d1fe70872389e84ebe802984.ogg',
@@ -138,7 +137,7 @@ for i in range(repetitions):
     out_dir = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')
     os.mkdir(out_dir)
 
-    duration = random.choice(samples_duration)
+    duration = random.choice([5, 15, 60])
     if duration == 5:
         samples_ = samples_5
     elif duration == 15:

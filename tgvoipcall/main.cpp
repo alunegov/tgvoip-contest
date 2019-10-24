@@ -32,14 +32,21 @@ struct Conf {
     std::string ConfigFileName;
 };
 
-Conf parseArgs(int argc, const char* argv[]);
+void printUsage();
+Conf parseArgs(int argc, const char** argv);
+bool checkConf(const Conf& conf);
 std::string readConfig(const std::string& ConfigFileName);
 std::vector<Endpoint> createEndpoints(const Conf& conf);
 void decodeHex(const std::string& hex, unsigned char* dest, size_t destLen);
 
-int main(int argc, const char* argv[]) {
+int main(int argc, const char** argv) {
     try {
         const auto conf = parseArgs(argc, argv);
+
+        if (!checkConf(conf)) {
+            printUsage();
+            return -1;
+        }
 
         OpusFileReader r;
         OpusFileWriter w;
@@ -148,13 +155,18 @@ int main(int argc, const char* argv[]) {
     }
 }
 
+void printUsage() {
+    std::cout << "Usage: tgvoipcall reflector:port tag_caller_hex -k encryption_key_hex -i /path/to/sound_A.opus -o /path/to/sound_output_B.opus -c /path/to/config.json -r caller|callee" << std::endl;
+}
+
 std::pair<std::string, uint16_t> parseAddr(const std::string& addr);
 
-Conf parseArgs(int argc, const char* argv[]) {
-    Conf res;
+Conf parseArgs(int argc, const char** argv) {
+    Conf res{};
 
+#ifndef NDEBUG
     if (argc == 1) {
-        std::cout << "Usage: tgvoipcall reflector:port tag_caller_hex -k encryption_key_hex -i /path/to/sound_A.opus -o /path/to/sound_output_B.opus -c /path/to/config.json -r caller|callee" << std::endl;
+        printUsage();
         std::cout << "Will use defaults for now" << std::endl;
 
         res.AddrIp = "134.209.178.88";
@@ -168,14 +180,19 @@ Conf parseArgs(int argc, const char* argv[]) {
 
         return res;
     }
+#endif
 
-    const auto p = parseAddr(argv[1]);
-    res.AddrIp = p.first;
-    res.AddrPort = p.second;
-    //cout << res.AddrIp << ":" << res.AddrPort << std::endl;
+    if (argc > 1) {
+        const auto p = parseAddr(argv[1]);
+        res.AddrIp = p.first;
+        res.AddrPort = p.second;
+        //cout << res.AddrIp << ":" << res.AddrPort << std::endl;
+    }
 
-    res.Tag = argv[2];
-    //cout << res.Tag << std::endl;
+    if (argc > 2) {
+        res.Tag = argv[2];
+        //cout << res.Tag << std::endl;
+    }
 
     for (int i = 3; (i + 2) <= argc; i += 2) {
         const std::string key{argv[i]};
@@ -206,6 +223,16 @@ std::pair<std::string, uint16_t> parseAddr(const std::string& addr) {
     const auto ip = addr.substr(0, p);
     const auto port = std::stoi(addr.substr(p + 1));
     return std::make_pair(ip, port);
+}
+
+bool checkConf(const Conf& conf) {
+    if (conf.AddrIp.empty() || (conf.AddrPort == 0)) return false;
+    if (conf.Tag.empty()) return false;
+    if (conf.EncryptionKey.empty()) return false;
+    if (conf.InputFileName.empty()) return false;
+    if (conf.OutputFileName.empty()) return false;
+    if (conf.ConfigFileName.empty()) return false;
+    return true;
 }
 
 std::string readConfig(const std::string& configFileName) {

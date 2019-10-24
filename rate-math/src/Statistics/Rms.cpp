@@ -33,3 +33,16 @@ RateFloat_t Rms_RateFloat(RateFloat_t const *aPoints, uint32_t aPointsCount, uin
 {
     return Rms<RateFloat_t>(aPoints, aPointsCount, aChannelsCount, aChannelIndex, aMean);
 }
+
+RateFloat_t RmsOnSpectrum(const RateFloat_t* aPoints, uint32_t aPointsCount)
+{
+    assert(aPoints != nullptr);
+
+    RateFloat_t sqrSum = 0;
+
+    for (uint_fast32_t i = 0; i < aPointsCount; i++) {
+        sqrSum += aPoints[i] * aPoints[i];
+    }
+
+    return std::sqrt(sqrSum / 2);
+}

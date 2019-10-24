@@ -12,6 +12,10 @@ add_executable(tgvoiprate ${source_list})
 set_property(TARGET tgvoiprate PROPERTY CXX_STANDARD 14)
 set_property(TARGET tgvoiprate PROPERTY CXX_STANDARD_REQUIRED ON)
 
+target_include_directories(tgvoiprate
+    PRIVATE "."
+)
+
 if(MSVC)
     target_compile_options(tgvoiprate
         PRIVATE /W4 /MTd

@@ -58,6 +58,8 @@ RateFloat_t Rms_AdcRaw(AdcRaw_t const *aPoints, uint32_t aPointsCount, uint32_t 
 RateFloat_t Rms_RateFloat(RateFloat_t const *aPoints, uint32_t aPointsCount, uint32_t aChannelsCount,
         uint32_t aChannelIndex, RateFloat_t aMean);
 
+RateFloat_t RmsOnSpectrum(const RateFloat_t* aPoints, uint32_t aPointsCount);
+
 // Transform
 
 bool Cfft(RateFloat_t *x, RateFloat_t *y, uint32_t n, bool aDirect);
