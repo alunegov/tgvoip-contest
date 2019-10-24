@@ -1,4 +1,1 @@
-libogg0
-libopus0
-libopusfile0
 libssl1.1

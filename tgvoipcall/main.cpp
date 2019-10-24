@@ -48,17 +48,17 @@ int main(int argc, const char* argv[]) {
 #endif
 
         if (!r.Open(conf.InputFileName)) {
-            cerr << "Error opening " << conf.InputFileName << std::endl;
+            std::cerr << "Error opening " << conf.InputFileName << std::endl;
             return -2;
         }
         if (!w.Create(conf.OutputFileName)) {
-            cerr << "Error creating " << conf.OutputFileName << std::endl;
+            std::cerr << "Error creating " << conf.OutputFileName << std::endl;
             return -3;
         }
 #ifdef TGVOIPCALL_WAVE_OUTPUT
         const auto wavOutputFileName{conf.OutputFileName + ".wav"};
         if (!waveW.Create(wavOutputFileName)) {
-            cerr << "Error creating " << wavOutputFileName << std::endl;
+            std::cerr << "Error creating " << wavOutputFileName << std::endl;
             return -4;
         }
 #endif
@@ -72,14 +72,14 @@ int main(int argc, const char* argv[]) {
         c->SetRemoteEndpoints(endpoints, Conf::AllowP2p, Conf::ConnMaxLayer);
 
         VoIPController::Config controllerConfig;
-        controllerConfig.initTimeout = 7;
+        controllerConfig.initTimeout = 5;
         controllerConfig.recvTimeout = 4;
         controllerConfig.dataSaving = DATA_SAVING_NEVER;
-        controllerConfig.enableAEC = true;
-        controllerConfig.enableNS = true;
-        controllerConfig.enableAGC = true;
+        controllerConfig.enableAEC = !ServerConfig::GetSharedInstance()->GetBoolean("use_system_aec", true);
+        controllerConfig.enableNS = !ServerConfig::GetSharedInstance()->GetBoolean("use_system_ns", true);
+        controllerConfig.enableAGC = false;
         controllerConfig.enableCallUpgrade = false;
-        controllerConfig.enableVolumeControl = true;
+        controllerConfig.enableVolumeControl = false;
         c->SetConfig(controllerConfig);
 
         unsigned char encKey[256];
@@ -87,11 +87,11 @@ int main(int argc, const char* argv[]) {
         c->SetEncryptionKey((char*)(encKey), conf.IsOutgoing);
 
         const auto input = [&](int16_t* data, size_t len) {
-            //cout << "input produce " << len << std::endl;
+            //std::cout << "input produce " << len << std::endl;
             r.Read(data, len);
         };
         const auto output = [&](int16_t* data, size_t len) {
-            //cout << "output got " << len << std::endl;
+            //std::cout << "output got " << len << std::endl;
             // TODO: don't write all zero points in data (produced by read on other end in case of eof)?
             w.Write(data, len);
 #ifdef TGVOIPCALL_WAVE_OUTPUT
@@ -108,8 +108,8 @@ int main(int argc, const char* argv[]) {
         while (true) {
             std::this_thread::sleep_for(std::chrono::milliseconds(333));
             if (c->GetConnectionState() == STATE_FAILED) {
-                cerr << "Connection failed (timeout)" << std::endl;
-                cerr << c->GetDebugLog() << std::endl;
+                std::cerr << "Connection failed (timeout)" << std::endl;
+                std::cerr << c->GetDebugLog() << std::endl;
                 res = -1;
                 break;
             }
@@ -122,19 +122,19 @@ int main(int argc, const char* argv[]) {
         c->Stop();
 
         if (res == 0) {
-            cout << c->GetDebugLog() << std::endl;
+            std::cout << c->GetDebugLog() << std::endl;
         }
 
         // will stop encoder and decoder (and AudioDataCallbacks)
         c.reset(nullptr);
 
         if (!w.Commit()) {
-            cerr << "Error commiting " << conf.OutputFileName << std::endl;
+            std::cerr << "Error commiting " << conf.OutputFileName << std::endl;
             res = -5;
         }
 #ifdef TGVOIPCALL_WAVE_OUTPUT
         if (!waveW.Commit()) {
-            cerr << "Error commiting " << wavOutputFileName << std::endl;
+            std::cerr << "Error commiting " << wavOutputFileName << std::endl;
             res = -5;
         }
 #endif
@@ -143,7 +143,7 @@ int main(int argc, const char* argv[]) {
 
         return res;
     } catch (const std::exception& e) {
-        cerr << e.what();
+        std::cerr << e.what();
         return -13;
     }
 }
