@@ -1,8 +1,8 @@
-#include <array>
+#include <algorithm>
 #include <cassert>
+#include <cmath>
 #include <fstream>
 #include <iostream>
-#include <numeric>
 #include <vector>
 
 #include <opusfile-reader.h>
@@ -18,60 +18,11 @@ void dumpToCsv(const T* buf, const size_t size, const std::string& fileName) {
     }
 }
 
-std::vector<double_t> calcBandsPower(const std::vector<int16_t>& signal, std::vector<double_t>& realBuf, std::vector<double_t>& imagBuf) {
-    const auto len{signal.size()};
-    assert(len == (size_t)PowOf2(FloorLog2(len)));
-    const auto mean{0.0};
-    const auto spec_len{len / 2};
-
-    //dumpToCsv(signal.data(), len, "signal.csv");
-
-    std::vector<double_t> res;
-
-    if (!Rfft(signal.data(), realBuf.data(), imagBuf.data(), len, mean, false)) {
-        return res;
-    }
-
-    // spectrum amplitudes are simmetrical - will use only first half
-    Cmplx_Ampl(realBuf.data(), imagBuf.data(), len, spec_len);
-    for (size_t i = 0; i < spec_len; i++) {
-        realBuf[i] = realBuf[i] * 1000;
-    }
-    //dumpToCsv(realBuf.data(), spec_len, "realBuf.csv");
-
-    // df = 1 / (dt * PointsCount) = RegFreq / PointsCount
-    const auto df{RegFreq / len};
-
-    // 24000 (RegFreq / 2) / 200 ~ 120 bands
-    const auto pointsInBand{FrequencyToIndex(200, df)};
-    for (size_t i = 0; i < spec_len; i += pointsInBand) {
-        uint32_t bandLen;
-        if ((i + pointsInBand) > spec_len) {
-            bandLen = spec_len - i;
-        } else {
-            bandLen = pointsInBand;
-        }
-        const auto rms = RmsOnSpectrum(&realBuf[i], bandLen);
-        res.emplace_back(rms);
-    }
-
-    return res;
-}
-
-double_t variance(const std::vector<double_t>& v) {
-    assert(!v.empty());
-
-    const auto mean = Mean_RateFloat(v.data(), v.size());
-
-    auto sqrSum{0.0};
-    for (double_t i : v) {
-        sqrSum += pow(i - mean, 2);
-    }
-    return sqrt(sqrSum / v.size());
-}
-
 void printUsage();
 std::pair<std::string, std::string> parseArgs(int argc, const char** argv);
+std::vector<double_t> calcBandsPower(const std::vector<int16_t>& signal, std::vector<double_t>& realBuf, std::vector<double_t>& imagBuf);
+double_t variance(const std::vector<double_t>& v);
+double_t calcRate(double_t variance);
 
 int main(int argc, const char** argv) {
     try {
@@ -104,30 +55,36 @@ int main(int argc, const char** argv) {
         std::vector<int16_t> refBuf(BufLen);
         std::vector<int16_t> testBuf(BufLen);
 
-        std::vector<double_t> realBuf(BufLen);
-        std::vector<double_t> imagBuf(BufLen);
+        std::vector<double_t> tmpRealBuf(BufLen);
+        std::vector<double_t> tmpImagBuf(BufLen);
 
         std::vector<std::vector<double_t>> refBands;
         std::vector<std::vector<double_t>> testBands;
 
-        size_t counter{0};
+        //size_t counter{0};
 
         while (refR.Read(refBuf.data(), BufLen) && testR.Read(testBuf.data(), BufLen)) {
             //dumpToCsv(refBuf.data(), BufLen, std::to_string(counter) + "_refBuf.csv");
             //dumpToCsv(testBuf.data(), BufLen, std::to_string(counter) + "_testBuf.csv");
 
-            const auto refFrameBands = calcBandsPower(refBuf, realBuf, imagBuf);
-            const auto testFrameBands = calcBandsPower(testBuf, realBuf, imagBuf);
+            const auto refFrameBands = calcBandsPower(refBuf, tmpRealBuf, tmpImagBuf);
+            const auto testFrameBands = calcBandsPower(testBuf, tmpRealBuf, tmpImagBuf);
+            if (refFrameBands.empty() || testFrameBands.empty()) {
+                // fft error
+                continue;
+            }
             assert(refFrameBands.size() == testFrameBands.size());
 
             refBands.emplace_back(refFrameBands);
             testBands.emplace_back(testFrameBands);
 
-            counter++;
+            //counter++;
         }
 
-        // 10*BufLen ~ 1700 ms
-        for (size_t frameShift = 0; frameShift < 10; frameShift++) {
+        // 7*BufLen ~ 1200 ms
+        std::vector<double_t> shiftedTotalVariance;
+
+        for (uint_fast8_t frameShift = 0; frameShift < 7; frameShift++) {
             std::vector<double_t> framesVariance(refBands.size());
 
             assert(refBands.size() == testBands.size());
@@ -144,11 +101,20 @@ int main(int argc, const char** argv) {
             }
 
             const auto totalVariance = variance(framesVariance);
+#ifndef NDEBUG
             std::cout << " var " << totalVariance;
             const auto totalMean = Mean_RateFloat(framesVariance.data(), framesVariance.size());
             std::cout << " mean " << totalMean;
+            std::cout << " rate " << calcRate(totalVariance);
             std::cout << " at frameShift " << frameShift * BufLen / RegFreq * 1000 << " ms" << std::endl;
+#endif
+
+            shiftedTotalVariance.emplace_back(totalVariance);
         }
+
+        const auto minTotalVariance = std::min_element(shiftedTotalVariance.begin(), shiftedTotalVariance.end());
+        assert(minTotalVariance != shiftedTotalVariance.end());
+        std::cout << calcRate(*minTotalVariance);
 
         // TODO: call dtors of refR, testR to catch their errors?
 
@@ -169,11 +135,11 @@ std::pair<std::string, std::string> parseArgs(int argc, const char** argv) {
         printUsage();
         std::cout << "Will use defaults for now" << std::endl;
 
-        //return std::make_pair("sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg", "out_caller_sample06_b05e9d0ca9fa03bc46191299c1bae645.ogg");
-        //return std::make_pair("sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg", "sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg");
-        //return std::make_pair("sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg", "sample06_b05e9d0ca9fa03bc46191299c1bae645.ogg");
-        //return std::make_pair("sample05_ff63f34c691af48ef285649054ab4906.ogg", "out_callee_sample05_ff63f34c691af48ef285649054ab4906.ogg");
-        return std::make_pair("sample05_0bb3646f15e8dc61f525f40f2884de57.ogg", "out_caller_sample05_0bb3646f15e8dc61f525f40f2884de57.ogg");
+        return std::make_pair("sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg", "out_caller_sample06_b05e9d0ca9fa03bc46191299c1bae645.ogg");  // same file with delay
+        //return std::make_pair("sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg", "sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg");  // same file
+        //return std::make_pair("sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg", "sample06_b05e9d0ca9fa03bc46191299c1bae645.ogg");  // diff files
+        //return std::make_pair("sample05_ff63f34c691af48ef285649054ab4906.ogg", "out_callee_sample05_ff63f34c691af48ef285649054ab4906.ogg");  // bad
+        //return std::make_pair("sample05_0bb3646f15e8dc61f525f40f2884de57.ogg", "out_caller_sample05_0bb3646f15e8dc61f525f40f2884de57.ogg");  // bad
     }
 #endif
 
@@ -182,4 +148,64 @@ std::pair<std::string, std::string> parseArgs(int argc, const char** argv) {
     } else {
         return std::make_pair("", "");
     }
+}
+
+std::vector<double_t> calcBandsPower(const std::vector<int16_t>& signal, std::vector<double_t>& realBuf, std::vector<double_t>& imagBuf) {
+    const auto len{signal.size()};
+    assert(len == (size_t)PowOf2(FloorLog2(len)));  // len should be a power of 2
+    const auto mean{0.0};  // assume where's no DC
+    const auto spec_len{len / 2};  // spectrum amplitudes are symmetrical - will use only first half
+
+    std::vector<double_t> res;
+
+    if (!Rfft(signal.data(), realBuf.data(), imagBuf.data(), len, mean, false)) {
+#ifndef NDEBUG
+        std::cerr << "Rfft error" << std::endl;
+#endif
+        return res;
+    }
+
+    Cmplx_Ampl(realBuf.data(), imagBuf.data(), len, spec_len);
+    // TODO: magic?
+    for (size_t i = 0; i < spec_len; i++) {
+        realBuf[i] = realBuf[i] * 1000;
+    }
+    //dumpToCsv(realBuf.data(), spec_len, "realBuf.csv");
+
+    // df = 1 / (dt * PointsCount) = RegFreq / PointsCount
+    const auto df{RegFreq / len};
+
+    // 24000 (RegFreq / 2) / 200 ~ 120 bands
+    const auto pointsInBand{FrequencyToIndex(200, df)};
+    for (size_t i = 0; i < spec_len; i += pointsInBand) {
+        // limit last band to spectrum highest freq
+        uint32_t bandLen;
+        if ((i + pointsInBand) > spec_len) {
+            bandLen = spec_len - i;
+        } else {
+            bandLen = pointsInBand;
+        }
+
+        const auto rms = RmsOnSpectrum(&realBuf[i], bandLen);
+        res.emplace_back(rms);
+    }
+
+    return res;
+}
+
+double_t variance(const std::vector<double_t>& v) {
+    assert(!v.empty());
+
+    const auto mean = Mean_RateFloat(v.data(), v.size());
+
+    auto sqrSum{0.0};
+    for (double_t i : v) {
+        sqrSum += pow(i - mean, 2);
+    }
+    return sqrt(sqrSum / v.size());
+}
+
+double_t calcRate(double_t variance) {
+    // 5 - (var - 0.7), depends on magic in calcBandsPower
+    return fmax(5.0 - fmax(variance - 0.7, 0.0), 1.0);
 }

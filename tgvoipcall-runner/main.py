@@ -33,6 +33,7 @@ def start_process(api_answer, direction, infile_name, outfile_name, out_dir):
 
 def do_call(auth_token, call, caller_file_name, callee_file_name, out_dir, logger):
     api_answer = get_voip_api_answer(auth_token, call)
+
     logger.write('api_answer:\n')
     logger.write(json.dumps(api_answer) + '\n')
 
