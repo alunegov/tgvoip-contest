@@ -84,13 +84,17 @@ int main(int argc, const char** argv) {
         // 7*BufLen ~ 1200 ms
         std::vector<double_t> shiftedTotalVariance;
 
+        // shifting test start to one frame and
+        // variance of all frames
         for (uint_fast8_t frameShift = 0; frameShift < 7; frameShift++) {
             std::vector<double_t> framesVariance(refBands.size());
 
+            // variance of diff between ref and test in all bands
             assert(refBands.size() == testBands.size());
             for (size_t i = 0; i < refBands.size() - frameShift; i++) {
                 std::vector<double_t> frameDeltas(refBands[i].size());
 
+                // diff of each band between ref and test
                 assert(refBands[i].size() == testBands[i].size());
                 for (size_t j = 0; j < refBands[i].size(); j++) {
                     // TODO: coeff for speech freqs (60-2000)
@@ -140,6 +144,7 @@ std::pair<std::string, std::string> parseArgs(int argc, const char** argv) {
         //return std::make_pair("sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg", "sample06_b05e9d0ca9fa03bc46191299c1bae645.ogg");  // diff files
         //return std::make_pair("sample05_ff63f34c691af48ef285649054ab4906.ogg", "out_callee_sample05_ff63f34c691af48ef285649054ab4906.ogg");  // bad
         //return std::make_pair("sample05_0bb3646f15e8dc61f525f40f2884de57.ogg", "out_caller_sample05_0bb3646f15e8dc61f525f40f2884de57.ogg");  // bad
+
     }
 #endif
 

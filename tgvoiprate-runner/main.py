@@ -14,6 +14,7 @@ def do_rate(ref_file_name, test_file_name):
 for root, dirs, files in os.walk('../tgvoipcall-runner'):
     if 'samples' in dirs:
         dirs.remove('samples')
+    dirs.sort()    
     if 'config.json' in files:
         for file in files:
             if os.path.splitext(file)[1] == '.ogg':

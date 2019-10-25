@@ -135,10 +135,10 @@ samples_60 = [
 ]
 
 for i in range(repetitions):
-    out_dir = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')
+    out_dir = datetime.datetime.now().strftime('%Y%m%d_%H%M%S_%f')
     os.mkdir(out_dir)
 
-    duration = random.choice([5, 15, 60])
+    duration = random.choice([5, 15])
     if duration == 5:
         samples_ = samples_5
     elif duration == 15:
