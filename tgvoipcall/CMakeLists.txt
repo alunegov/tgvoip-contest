@@ -2,13 +2,14 @@ cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 project(tgvoipcall LANGUAGES CXX)
 
-find_package(OpenSSL)
 if(MSVC)
+    #find_package(OpenSSL)
     find_library(TGVOIP_LIB libtgvoip.lib)
 else()
-    find_library(TGVOIP_LIB libtgvoip.a)
+    find_library(CRYPTO_LIB libcrypto.a)
+    find_library(TGVOIP_LIB libtgvoip.a HINTS ../_ext/libtgvoip/.libs)
 endif()
-#find_path(TGVOIP_INCLUDE VoIPController.h HINTS ../../../Work3/libtgvoip)
+find_path(TGVOIP_INCLUDE VoIPController.h HINTS ../_ext/libtgvoip)
 add_subdirectory(../opusfile-reader opusfile-reader)
 add_subdirectory(../opusfile-writer opusfile-writer)
 
@@ -20,7 +21,7 @@ set_property(TARGET tgvoipcall PROPERTY CXX_STANDARD 14)
 set_property(TARGET tgvoipcall PROPERTY CXX_STANDARD_REQUIRED ON)
 
 target_include_directories(tgvoipcall
-    PRIVATE "../../../Work3/libtgvoip"
+    PRIVATE ${TGVOIP_INCLUDE}
 )
 
 target_compile_definitions(tgvoipcall
@@ -39,8 +40,8 @@ else()
 endif()
 
 target_link_libraries(tgvoipcall
-    PRIVATE ${OPENSSL_CRYPTO_LIBRARY}
     PRIVATE ${TGVOIP_LIB}
+    PRIVATE ${CRYPTO_LIB}
     PRIVATE opusfile-reader
     PRIVATE opusfile-writer
     PRIVATE wavefile-writer
@@ -53,6 +54,7 @@ if(MSVC)
     )
 else()
     target_link_libraries(tgvoipcall
+        PRIVATE dl
         PRIVATE pthread
     )
 endif()

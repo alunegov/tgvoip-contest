@@ -10,7 +10,7 @@ else()
     find_library(OPUSENC_LIB libopusenc.a HINTS ../_ext/libopusenc/.libs)
 endif()
 find_path(OPUS_INCLUDE opus.h PATH_SUFFIXES opus)
-find_path(OPUSENC_INCLUDE opusenc.h PATH_SUFFIXES opus)
+find_path(OPUSENC_INCLUDE opusenc.h HINTS ../_ext/libopusenc/include)
 
 set(source_list "opusfile-writer.cpp" "opusfile-writer.h")
 

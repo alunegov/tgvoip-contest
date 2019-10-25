@@ -10,3 +10,6 @@
 [submodule "_ext/ogg"]
 	path = _ext/ogg
 	url = https://github.com/xiph/ogg.git
+[submodule "_ext/libtgvoip"]
+	path = _ext/libtgvoip
+	url = https://github.com/telegramdesktop/libtgvoip.git
