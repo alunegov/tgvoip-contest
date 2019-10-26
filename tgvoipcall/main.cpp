@@ -150,7 +150,7 @@ int main(int argc, const char** argv) {
 
         return res;
     } catch (const std::exception& e) {
-        std::cerr << e.what();
+        std::cerr << e.what() << std::endl;
         return -13;
     }
 }

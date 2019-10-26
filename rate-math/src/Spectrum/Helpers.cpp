@@ -10,7 +10,7 @@ uint32_t FrequencyToIndex(RateFloat_t aFrequency, RateFloat_t aDf)
     return static_cast<uint32_t>(std::lround(aFrequency / aDf));
 }
 
-RateFloat_t IndexToFrequency(RateFloat_t aIndex, RateFloat_t aDf)
+RateFloat_t IndexToFrequency(uint32_t aIndex, RateFloat_t aDf)
 {
     assert(aDf > 0);
     

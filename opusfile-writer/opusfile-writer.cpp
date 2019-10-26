@@ -13,6 +13,7 @@ OpusFileWriter::~OpusFileWriter() {
 
 bool OpusFileWriter::Create(const std::string& fileName) {
     assert(enc == nullptr);
+    assert(isEmpty);
     assert(!isCommited);
 
     const auto rate{48000};
@@ -33,6 +34,14 @@ bool OpusFileWriter::Create(const std::string& fileName) {
     if (ret != OPE_OK) {
         return false;
     }
+    ret = ope_encoder_ctl((OggOpusEnc*)enc, OPUS_SET_VBR(1));
+    if (ret != OPE_OK) {
+        return false;
+    }
+    ret = ope_encoder_ctl((OggOpusEnc*)enc, OPUS_SET_VBR_CONSTRAINT(0));
+    if (ret != OPE_OK) {
+        return false;
+    }
 
     return true;
 }
@@ -46,6 +55,8 @@ bool OpusFileWriter::Write(int16_t* data, size_t len) {
         return false;
     }
 
+    isEmpty = true;
+
     return true;
 }
 
@@ -56,10 +67,12 @@ bool OpusFileWriter::Commit() {
         return true;
     }
 
-    // TODO: fail on empty enc.streams
-    const auto ret = ope_encoder_drain((OggOpusEnc*)enc);
-    if (ret != OPE_OK) {
-        return false;
+    // fail on empty enc.streams
+    if (!isEmpty) {
+        const auto ret = ope_encoder_drain((OggOpusEnc *) enc);
+        if (ret != OPE_OK) {
+            return false;
+        }
     }
 
     isCommited = true;

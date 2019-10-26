@@ -12,5 +12,6 @@ public:
     bool Commit();
 private:
     void* enc{nullptr};
+    bool isEmpty{true};
     bool isCommited{false};
 };
