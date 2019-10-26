@@ -26,7 +26,7 @@ target_include_directories(tgvoipcall
 
 target_compile_definitions(tgvoipcall
     PRIVATE TGVOIP_USE_CALLBACK_AUDIO_IO
-    PRIVATE TGVOIPCALL_WAVE_OUTPUT
+    #PRIVATE TGVOIPCALL_WAVE_OUTPUT
 )
 
 if(MSVC)

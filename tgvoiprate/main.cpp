@@ -61,9 +61,6 @@ int main(int argc, const char** argv) {
         std::vector<std::vector<double_t>> refBands;
         std::vector<std::vector<double_t>> testBands;
 
-        std::vector<double_t> refExcs;
-        std::vector<double_t> testExcs;
-
         //size_t counter{0};
 
         while (refR.Read(refBuf.data(), BufLen) && testR.Read(testBuf.data(), BufLen)) {
@@ -80,13 +77,6 @@ int main(int argc, const char** argv) {
 
             refBands.emplace_back(refFrameBands);
             testBands.emplace_back(testFrameBands);
-
-            //
-            const auto refExc = Excess_AdcRaw(refBuf.data(), BufLen, 1, 0, 0);
-            const auto testExc = Excess_AdcRaw(testBuf.data(), BufLen, 1, 0, 0);
-
-            refExcs.emplace_back(refExc);
-            testExcs.emplace_back(testExc);
 
             //counter++;
         }
@@ -126,32 +116,6 @@ int main(int argc, const char** argv) {
             shiftedTotalVariance.emplace_back(totalVariance);
         }
 
-        // 7*BufLen ~ 1200 ms
-        std::vector<double_t> shiftedTotalVariance2;
-
-        // shifting test start to one frame and
-        // variance of all frames
-        for (uint_fast8_t frameShift = 0; frameShift < 7; frameShift++) {
-            std::vector<double_t> frameDeltas(refExcs.size());
-
-            // diff of each band between ref and test
-            assert(refBands.size() == testBands.size());
-            for (size_t i = 0; i < refExcs.size() - frameShift; i++) {
-                frameDeltas[i] = abs(refExcs[i] - testExcs[frameShift + i]);
-            }
-
-            const auto totalVariance = variance(frameDeltas);
-#ifndef NDEBUG
-            std::cout << " var " << totalVariance;
-            const auto totalMean = Mean_RateFloat(frameDeltas.data(), frameDeltas.size());
-            std::cout << " mean " << totalMean;
-            std::cout << " rate " << calcRate(totalVariance);
-            std::cout << " at frameShift " << frameShift * BufLen / RegFreq * 1000 << " ms" << std::endl;
-#endif
-
-            shiftedTotalVariance2.emplace_back(totalVariance);
-        }
-
         const auto minTotalVariance = std::min_element(shiftedTotalVariance.begin(), shiftedTotalVariance.end());
         assert(minTotalVariance != shiftedTotalVariance.end());
         std::cout << calcRate(*minTotalVariance) << std::endl;
@@ -175,11 +139,11 @@ std::pair<std::string, std::string> parseArgs(int argc, const char** argv) {
         printUsage();
         std::cout << "Will use defaults for now" << std::endl;
 
-        return std::make_pair("sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg", "out_caller_sample06_b05e9d0ca9fa03bc46191299c1bae645.ogg");  // same file with delay
+        //return std::make_pair("sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg", "out_caller_sample06_b05e9d0ca9fa03bc46191299c1bae645.ogg");  // same file with delay
         //return std::make_pair("sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg", "sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg");  // same file
         //return std::make_pair("sample05_066a3936b4ebc1ca0c3b9e5d4e061e4b.ogg", "sample06_b05e9d0ca9fa03bc46191299c1bae645.ogg");  // diff files
         //return std::make_pair("sample05_ff63f34c691af48ef285649054ab4906.ogg", "out_callee_sample05_ff63f34c691af48ef285649054ab4906.ogg");  // bad
-        //return std::make_pair("sample05_0bb3646f15e8dc61f525f40f2884de57.ogg", "out_caller_sample05_0bb3646f15e8dc61f525f40f2884de57.ogg");  // bad
+        return std::make_pair("sample05_0bb3646f15e8dc61f525f40f2884de57.ogg", "out_caller_sample05_0bb3646f15e8dc61f525f40f2884de57.ogg");  // bad
 
     }
 #endif
@@ -216,14 +180,10 @@ std::vector<double_t> calcBandsPower(const std::vector<int16_t>& signal, std::ve
     // df = 1 / (dt * PointsCount) = RegFreq / PointsCount
     const auto df{RegFreq / len};
 
-    // 24000 (RegFreq / 2) / 200 ~ 120 bands
+    // 24000 (RegFreq / 2) / 100 ~ 240 bands
     const auto pointsInBand{FrequencyToIndex(100, df)};
 
     for (size_t i = 0; i < spec_len; i += pointsInBand) {
-        if (IndexToFrequency(i, df) > 3800) {
-            //break;
-        }
-
         // limit last band to spectrum highest freq
         uint32_t bandLen;
         if ((i + pointsInBand) > spec_len) {
