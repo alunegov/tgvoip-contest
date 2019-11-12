@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
+option(WAVE_OUT "Also output as WAVE" OFF)
+
 project(tgvoipcall LANGUAGES CXX)
 
 if(MSVC)
@@ -10,8 +12,13 @@ else()
     find_library(TGVOIP_LIB libtgvoip.a HINTS ../_ext/libtgvoip/.libs)
 endif()
 find_path(TGVOIP_INCLUDE VoIPController.h HINTS ../_ext/libtgvoip)
-add_subdirectory(../opusfile-reader opusfile-reader)
+if(NOT TARGET opusfile-reader)
+    add_subdirectory(../opusfile-reader opusfile-reader)
+endif()
 add_subdirectory(../opusfile-writer opusfile-writer)
+if(WAVE_OUT AND NOT TARGET wavefile-writer)
+    add_subdirectory(../wavefile-writer wavefile-writer)
+endif()
 
 set(source_list "main.cpp")
 
@@ -26,8 +33,12 @@ target_include_directories(tgvoipcall
 
 target_compile_definitions(tgvoipcall
     PRIVATE TGVOIP_USE_CALLBACK_AUDIO_IO
-    #PRIVATE TGVOIPCALL_WAVE_OUTPUT
 )
+if(WAVE_OUT)
+    target_compile_definitions(tgvoipcall
+        PRIVATE TGVOIPCALL_WAVE_OUTPUT
+    )
+endif()
 
 if(MSVC)
     target_compile_options(tgvoipcall
@@ -44,8 +55,12 @@ target_link_libraries(tgvoipcall
     PRIVATE ${CRYPTO_LIB}
     PRIVATE opusfile-reader
     PRIVATE opusfile-writer
-    PRIVATE wavefile-writer
 )
+if(WAVE_OUT)
+    target_link_libraries(tgvoipcall
+        PRIVATE wavefile-writer
+    )
+endif()
 if(MSVC)
     target_link_libraries(tgvoipcall
         PRIVATE ws2_32

@@ -1,27 +1,27 @@
-## Dev deps
+# Linux
 
-Linux:
+## Dev deps
 
 ```
 sudo apt-get install libssl-dev libogg-dev libopus-dev libopusfile-dev
 ```
 
-Windows:
+Build tools:
 
 ```
-vcpkg install openssl? ogg? opus? opusfile? opusenc?
+sudo apt-get install g++ cmake ninja
 ```
 
 ### libtgvoip
 
 ```
 cd _ext/libtgvoip
-./configure --enable-audio-callback CXXFLAGS='-DTGVOIP_LOG_VERBOSITY=1 -DNDEBUG' (duplicate to CFLAGS?)
+./configure --enable-audio-callback CXXFLAGS='-DTGVOIP_LOG_VERBOSITY=1 -DNDEBUG'
 make
 sudo make install
 ```
 
-### libopusenc (Linux only)
+### libopusenc
 
 ```
 cd _ext/libopusenc
@@ -32,8 +32,6 @@ sudo make install
 
 ## Build tgvoipcall
 
-Linux:
-
 ```
 cd tgvoipcall
 mkdir build
@@ -42,19 +40,7 @@ cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
 cmake --build .
 ```
 
-Windows:
-
-```
-cd tgvoipcall
-md build
-cd build
-cmake -DCMAKE_TOOLCHAIN_FILE=C:\dev\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static -DCMAKE_LIBRARY_PATH=../../../Work3/libtgvoip/x64/Debug ..
-cmake --build . --target ALL_BUILD --config Release
-```
-
 ## Build tgvoiprate
-
-Linux:
 
 ```
 cd tgvoiprate
@@ -62,4 +48,45 @@ mkdir build
 cd build
 cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
 cmake --build .
+```
+
+# Windows
+
+## Dev deps
+
+```
+vcpkg install openssl ogg opus opusfile opusenc
+```
+
+Build tools:
+- MSVC
+- vcpkg
+- cmake
+
+### libtgvoip
+
+```
+cd _ext/libtgvoip
+gyp --depth=. libtgvoip.gyp
+TODO:
+```
+
+## Build tgvoipcall
+
+```
+cd tgvoipcall
+md build
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=C:\dev\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static -DCMAKE_LIBRARY_PATH=../_ext/libtgvoip/x64/Release ..
+cmake --build . --target ALL_BUILD --config Release
+```
+
+## Build tgvoiprate
+
+```
+cd tgvoiprate
+md build
+cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=C:\dev\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static ..
+cmake --build . --target ALL_BUILD --config Release
 ```

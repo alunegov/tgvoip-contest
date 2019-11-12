@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
+option(BUILD_TESTS "Build test programm" OFF)
+
 project(opusfile-writer LANGUAGES CXX)
 
 if(MSVC)
@@ -40,17 +42,19 @@ target_link_libraries(opusfile-writer
     INTERFACE ${OPUS_LIB}
 )
 
-add_subdirectory(../wavefile-reader wavefile-reader)
+if(BUILD_TESTS)
+    add_subdirectory(../wavefile-reader wavefile-reader)
 
-add_executable(opusfile-writer-test "opusfile-writer_test.cpp")
-target_include_directories(opusfile-writer-test PUBLIC $<TARGET_PROPERTY:opusfile-writer,INCLUDE_DIRECTORIES>)
-if(MSVC)
-    target_compile_options(opusfile-writer-test
-        PRIVATE /W4 /MTd
-    )
-else()
-    target_compile_options(opusfile-writer-test
-        PRIVATE -Wall -Wextra
-    )
+    add_executable(opusfile-writer-test "opusfile-writer_test.cpp")
+    target_include_directories(opusfile-writer-test PUBLIC $<TARGET_PROPERTY:opusfile-writer,INCLUDE_DIRECTORIES>)
+    if(MSVC)
+        target_compile_options(opusfile-writer-test
+            PRIVATE /W4 /MTd
+        )
+    else()
+        target_compile_options(opusfile-writer-test
+            PRIVATE -Wall -Wextra
+        )
+    endif()
+    target_link_libraries(opusfile-writer-test PUBLIC opusfile-writer wavefile-reader)
 endif()
-target_link_libraries(opusfile-writer-test PUBLIC opusfile-writer wavefile-reader)

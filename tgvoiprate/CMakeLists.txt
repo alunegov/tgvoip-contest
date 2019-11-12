@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 project(tgvoiprate LANGUAGES CXX)
 
-add_subdirectory(../opusfile-reader opusfile-reader)
+if(NOT TARGET opusfile-reader)
+    add_subdirectory(../opusfile-reader opusfile-reader)
+endif()
 add_subdirectory(../rate-math rate-math)
 
 set(source_list "main.cpp")
