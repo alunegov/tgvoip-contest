@@ -2,6 +2,7 @@
 #include <cassert>
 #include <cmath>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <vector>
 
@@ -118,7 +119,7 @@ int main(int argc, const char** argv) {
 
         const auto minTotalVariance = std::min_element(shiftedTotalVariance.begin(), shiftedTotalVariance.end());
         assert(minTotalVariance != shiftedTotalVariance.end());
-        std::cout << calcRate(*minTotalVariance) << std::endl;
+        std::cout << std::setprecision(5) << calcRate(*minTotalVariance) << std::endl;
 
         // TODO: call dtors of refR, testR to catch their errors?
 
