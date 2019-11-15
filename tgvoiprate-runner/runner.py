@@ -17,7 +17,7 @@ def do_rate(ref_file_name, test_file_name, logger=None):
     else:
         print(s.stdout)
 
-def do_run(logger=None):
+def do_run_allcalls(logger=None):
     for root, dirs, files in os.walk('../tgvoipcall-runner'):
         if 'samples' in dirs:
             dirs.remove('samples')
@@ -46,12 +46,7 @@ def do_run(logger=None):
                         else:
                             print(comment)
 
-if len(sys.argv) > 1:
-    testEntrys = sys.argv[1] == 'entrys'
-else:
-    testEntrys = false
-
-if testEntrys:
+def do_run_allentrys():
     for root, dirs, files in os.walk('entrys'):
         dirs.sort()
 
@@ -64,9 +59,18 @@ if testEntrys:
             start = time.perf_counter_ns()
             
             with open(entry_name + '.txt', 'w') as f:
-                do_run(f)
+                do_run_allcalls(f)
                 f.write('elapsed in {} ms'.format((time.perf_counter_ns() - start) / 1000000))
 
             print('{} elapsed in {} ms'.format(entry_name, (time.perf_counter_ns() - start) / 1000000))
-else:
-    do_run()
+
+def main():
+    testEntrys = (len(sys.argv) > 1) and (sys.argv[1] == 'entrys')
+
+    if testEntrys:
+        do_run_allentrys()
+    else:
+        do_run_allcalls()
+
+if __name__ == '__main__':
+    main()
