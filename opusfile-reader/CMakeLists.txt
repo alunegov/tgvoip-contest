@@ -5,7 +5,7 @@ option(BUILD_TESTS "Build test programm" OFF)
 project(opusfile-reader LANGUAGES CXX)
 
 if(MSVC)
-    find_library(OGG_LIB ogg.lib)
+    find_library(OGG_LIB libogg.lib)
     find_library(OPUS_LIB opus.lib)
     find_library(OPUSFILE_LIB opusfile.lib)
 else()

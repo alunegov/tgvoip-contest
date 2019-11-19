@@ -1,12 +1,25 @@
 import os
+import platform
 import shutil
 import subprocess
 import sys
 import time
 
+def rate_exec_name():
+    if platform.system() == 'Windows':
+        return 'tgvoiprate.exe'
+    else:
+        return 'tgvoiprate'
+
+def rate_exec():
+    if platform.system() == 'Windows':
+        return rate_exec_name()
+    else:
+        return './' + rate_exec_name()
+
 def do_rate(ref_file_name, test_file_name, logger=None):
     s = subprocess.run(
-        ['./tgvoiprate', ref_file_name, test_file_name],
+        [rate_exec(), ref_file_name, test_file_name],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         universal_newlines=True,
@@ -50,11 +63,11 @@ def do_run_allentrys():
     for root, dirs, files in os.walk('entrys'):
         dirs.sort()
 
-        if 'tgvoiprate' in files:
+        if rate_exec_name() in files:
             entry_name = os.path.basename(root)
             print('Processing {}'.format(entry_name))
 
-            shutil.copy2(os.path.join(root, 'tgvoiprate'), './')
+            shutil.copy2(os.path.join(root, rate_exec_name()), './')
 
             start = time.perf_counter_ns()
             

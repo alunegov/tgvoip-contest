@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+import platform
 import random
 import subprocess
 import sys
@@ -13,11 +14,17 @@ def get_voip_api_answer(auth_token, call):
 
     return json.loads(contents)
 
+def call_exec():
+    if platform.system() == 'Windows':
+        return 'tgvoipcall.exe'
+    else:
+        return './tgvoipcall'
+
 def start_process(api_answer, direction, infile_name, outfile_name, out_dir):
     endpoint = api_answer['result']['endpoints'][0]
 
     return subprocess.Popen(
-        ['./tgvoipcall',
+        [call_exec(),
             '{0}:{1}'.format(endpoint['ip'], endpoint['port']),
             endpoint['peer_tags'][direction],
             '-k', api_answer['result']['encryption_key'],

@@ -9,13 +9,24 @@
 #include <opusfile-reader.h>
 #include <rate-math.h>
 
-constexpr auto RegFreq{48000.0};
+constexpr double_t RegFreq{48000.0};
+
+//constexpr size_t BufLen{512}; // ~ 10 ms
+//constexpr size_t BufLen{1024}; // ~ 21 ms
+//constexpr size_t BufLen{2048}; // ~ 42 ms
+constexpr size_t BufLen{4096}; // ~ 85 ms
+//constexpr size_t BufLen{8192}; // ~ 170 ms
+//constexpr size_t BufLen{16384}; // ~ 340 ms
+//constexpr size_t BufLen{32768}; // ~ 680 ms
+//constexpr size_t BufLen{65536}; // ~ 1365 ms
+
+constexpr double_t BandWidth{300.0};
 
 template <typename T>
-void dumpToCsv(const T* buf, const size_t size, const std::string& fileName) {
+void dumpToCsv(const T* buf, const size_t size, double_t dx, const std::string& fileName) {
     std::ofstream file{fileName};
     for (size_t i = 0; i < size; i++) {
-        file << i << ";" << buf[i] << std::endl;
+        file << i * dx << "\t" << buf[i] << "\t" << i << std::endl;
     }
 }
 
@@ -46,13 +57,6 @@ int main(int argc, const char** argv) {
             return -3;
         }
 
-        //const auto BufLen{2048}; // ~ 42 ms
-        //const auto BufLen{4096}; // ~ 85 ms
-        const auto BufLen{8192}; // ~ 170 ms
-        //const auto BufLen{16384}; // ~ 340 ms
-        //const auto BufLen{32768}; // ~ 680 ms
-        //const auto BufLen{65536}; // ~ 1365 ms
-
         std::vector<int16_t> refBuf(BufLen);
         std::vector<int16_t> testBuf(BufLen);
 
@@ -62,14 +66,24 @@ int main(int argc, const char** argv) {
         std::vector<std::vector<double_t>> refBands;
         std::vector<std::vector<double_t>> testBands;
 
-        //size_t counter{0};
+        size_t counter{0};
 
         while (refR.Read(refBuf.data(), BufLen) && testR.Read(testBuf.data(), BufLen)) {
-            //dumpToCsv(refBuf.data(), BufLen, std::to_string(counter) + "_refBuf.csv");
-            //dumpToCsv(testBuf.data(), BufLen, std::to_string(counter) + "_testBuf.csv");
+#ifndef NDEBUG
+            //dumpToCsv(refBuf.data(), BufLen, 1 / RegFreq, std::to_string(counter) + "_refBuf.csv");
+            //dumpToCsv(testBuf.data(), BufLen, 1 / RegFreq, std::to_string(counter) + "_testBuf.csv");
+#endif
 
             const auto refFrameBands = calcBandsPower(refBuf, tmpRealBuf, tmpImagBuf);
+#ifndef NDEBUG
+            //dumpToCsv(tmpRealBuf.data(), BufLen / 2, RegFreq / BufLen, std::to_string(counter) + "_refAmpl.csv");
+            //dumpToCsv(refFrameBands.data(), refFrameBands.size(), BandWidth, std::to_string(counter) + "_refBands.csv");
+#endif
             const auto testFrameBands = calcBandsPower(testBuf, tmpRealBuf, tmpImagBuf);
+#ifndef NDEBUG
+            //dumpToCsv(tmpRealBuf.data(), BufLen / 2, RegFreq / BufLen, std::to_string(counter) + "_testAmpl.csv");
+            //dumpToCsv(testFrameBands.data(), testFrameBands.size(), BandWidth, std::to_string(counter) + "_testBands.csv");
+#endif
             if (refFrameBands.empty() || testFrameBands.empty()) {
                 // fft error
                 continue;
@@ -79,16 +93,19 @@ int main(int argc, const char** argv) {
             refBands.emplace_back(refFrameBands);
             testBands.emplace_back(testFrameBands);
 
-            //counter++;
+            counter++;
         }
 
-        // 7*BufLen ~ 1200 ms
-        std::vector<double_t> shiftedTotalVariance;
+        std::vector<double_t> shiftedTotalVar;
+
+        // shift ~ 1000 ms
+        const size_t FrameShiftCount{(size_t)(llround(1.0 / (BufLen / RegFreq)))};
 
         // shifting test start to one frame and
         // variance of all frames
-        for (uint_fast8_t frameShift = 0; frameShift < 7; frameShift++) {
-            std::vector<double_t> framesVariance(refBands.size());
+        for (uint_fast8_t frameShift = 0; frameShift < FrameShiftCount; frameShift++) {
+            std::vector<double_t> framesMean(refBands.size() - frameShift);
+            std::vector<double_t> framesVar(refBands.size() - frameShift);
 
             // variance of diff between ref and test in all bands
             assert(refBands.size() == testBands.size());
@@ -99,27 +116,50 @@ int main(int argc, const char** argv) {
                 assert(refBands[i].size() == testBands[i].size());
                 for (size_t j = 0; j < refBands[i].size(); j++) {
                     // TODO: coeff for speech freqs (60-2000)
-                    frameDeltas[j] = abs(refBands[i][j] - testBands[frameShift + i][j]);
+                    //frameDeltas[j] = abs(refBands[i][j] - testBands[frameShift + i][j]);
+                    frameDeltas[j] = refBands[i][j] / testBands[frameShift + i][j];
                 }
+                //dumpToCsv(frameDeltas.data(), frameDeltas.size(), BandWidth, std::to_string(frameShift) + "_f" + std::to_string(i) + "_delta.csv");
 
-                framesVariance[i] = variance(frameDeltas);
+                framesMean[i] = Mean_RateFloat(frameDeltas.data(), frameDeltas.size());
+                framesVar[i] = variance(frameDeltas);
+            }
+#ifndef NDEBUG
+            //dumpToCsv(framesMean.data(), framesMean.size(), BufLen / RegFreq, std::to_string(frameShift) + "_mean.csv");
+            //dumpToCsv(framesVariance.data(), framesVariance.size(), BufLen / RegFreq, std::to_string(frameShift) + "_var.csv");
+#endif
+
+            double_t totalMean = Mean_RateFloat(framesMean.data(), framesMean.size());
+            double_t totalVar = variance(framesMean);
+            std::cout << " var " << totalVar;
+            std::cout << " mean " << totalMean;
+
+            const double_t threshold_for_mean{totalMean + 0.3 * totalVar};
+
+            std::cout << " skipping all above " << threshold_for_mean;
+            std::vector<double_t> framesMean_;
+            std::vector<double_t> framesVar_;
+            for (size_t i = 0; i < framesMean.size(); i++) {
+                if (framesMean[i] < threshold_for_mean) {
+                    framesMean_.emplace_back(framesMean[i]);
+                }
             }
 
-            const auto totalVariance = variance(framesVariance);
+            totalMean = Mean_RateFloat(framesMean_.data(), framesMean_.size());
+            totalVar = variance(framesMean_);
 #ifndef NDEBUG
-            std::cout << " var " << totalVariance;
-            const auto totalMean = Mean_RateFloat(framesVariance.data(), framesVariance.size());
-            std::cout << " mean " << totalMean;
-            std::cout << " rate " << calcRate(totalVariance);
+            std::cout << " var_ " << totalVar;
+            std::cout << " mean_ " << totalMean;
+            std::cout << " rate " << calcRate(totalVar);
             std::cout << " at frameShift " << frameShift * BufLen / RegFreq * 1000 << " ms" << std::endl;
 #endif
 
-            shiftedTotalVariance.emplace_back(totalVariance);
+            shiftedTotalVar.emplace_back(totalVar);
         }
 
-        const auto minTotalVariance = std::min_element(shiftedTotalVariance.begin(), shiftedTotalVariance.end());
-        assert(minTotalVariance != shiftedTotalVariance.end());
-        std::cout << std::setprecision(5) << calcRate(*minTotalVariance) << std::endl;
+        const auto minTotalVar = std::min_element(shiftedTotalVar.begin(), shiftedTotalVar.end());
+        assert(minTotalVar != shiftedTotalVar.end());
+        std::cout << std::setprecision(5) << calcRate(*minTotalVar) << std::endl;
 
         // TODO: call dtors of refR, testR to catch their errors?
 
@@ -157,10 +197,10 @@ std::pair<std::string, std::string> parseArgs(int argc, const char** argv) {
 }
 
 std::vector<double_t> calcBandsPower(const std::vector<int16_t>& signal, std::vector<double_t>& realBuf, std::vector<double_t>& imagBuf) {
-    const auto len{signal.size()};
+    const size_t len{signal.size()};
     assert(len == (size_t)PowOf2(FloorLog2(len)));  // len should be a power of 2
-    const auto mean{0.0};  // assume where's no DC
-    const auto spec_len{len / 2};  // spectrum amplitudes are symmetrical - will use only first half
+    const double_t mean{0.0};  // assume where's no DC
+    const size_t spec_len{len / 2};  // spectrum amplitudes are symmetrical - will use only first half
 
     std::vector<double_t> res;
 
@@ -176,24 +216,23 @@ std::vector<double_t> calcBandsPower(const std::vector<int16_t>& signal, std::ve
     for (size_t i = 0; i < spec_len; i++) {
         realBuf[i] = realBuf[i] * 1000;
     }
-    //dumpToCsv(realBuf.data(), spec_len, "realBuf.csv");
 
     // df = 1 / (dt * PointsCount) = RegFreq / PointsCount
-    const auto df{RegFreq / len};
+    const double_t df{RegFreq / len};
 
-    // 24000 (RegFreq / 2) / 100 ~ 240 bands
-    const auto pointsInBand{FrequencyToIndex(100, df)};
+    // 24000 (= RegFreq / 2) / 100 ~ 240 bands
+    const size_t pointsInBand{FrequencyToIndex(BandWidth, df)};
 
     for (size_t i = 0; i < spec_len; i += pointsInBand) {
         // limit last band to spectrum highest freq
-        uint32_t bandLen;
+        size_t bandLen;
         if ((i + pointsInBand) > spec_len) {
             bandLen = spec_len - i;
         } else {
             bandLen = pointsInBand;
         }
 
-        const auto rms = RmsOnSpectrum(&realBuf[i], bandLen);
+        const double_t rms = RmsOnSpectrum(&realBuf[i], bandLen);
         res.emplace_back(rms);
     }
 
@@ -203,9 +242,9 @@ std::vector<double_t> calcBandsPower(const std::vector<int16_t>& signal, std::ve
 double_t variance(const std::vector<double_t>& v) {
     assert(!v.empty());
 
-    const auto mean = Mean_RateFloat(v.data(), v.size());
+    const double_t mean = Mean_RateFloat(v.data(), v.size());
 
-    auto sqrSum{0.0};
+    double_t sqrSum{0.0};
     for (double_t i : v) {
         sqrSum += pow(i - mean, 2);
     }

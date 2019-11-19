@@ -3,6 +3,8 @@ import io
 import os
 import statistics
 
+import runner
+
 RatingsFileName = 'voip_contest1_ratings.csv'
 
 # entrys 992, 998, 1000, 1001 got empty rates
@@ -60,7 +62,8 @@ def parse_ratings(filename):
 def calc_rating(correct, test):
     sum = 0.0
     for x, y in zip(correct, test):
-        sum = sum + pow(max(abs(x - y) - 0.3, 0.0), 2)
+        y_ = max(1.0, min(y, 5.0))
+        sum = sum + pow(max(abs(x - y_) - 0.3, 0.0), 2)
     return sum
 
 def print_ratings(entry_names, entry_rates):
@@ -103,7 +106,7 @@ def print_run(test_cases):
     for test_case in test_cases:
         original_filename = os.path.join(SamplesPath, test_case.original)
         distorted_filename = os.path.join(DistortedPath, test_case.distorted())
-        print('./tgvoiprate {0} {1}'.format(original_filename, distorted_filename))
+        print('{0} {1} {2}'.format(runner.rate_exec(), original_filename, distorted_filename))
 
 def to_deltas(ideltas):
     res = []
@@ -127,20 +130,31 @@ def do_print():
     #print_run(test_cases)
 
 def do_run_alldistorted():
-    import runner
-
     _, test_cases, entry_rates = parse_ratings(RatingsFileName)
 
     new_rates = []
+    #c = 1
     for test_case in test_cases:
         original_filename = os.path.join(SamplesPath, test_case.original)
         distorted_filename = os.path.join(DistortedPath, test_case.distorted())
         with io.StringIO() as s:
             runner.do_rate(original_filename, distorted_filename, s)
-            new_rates.append(float(s.getvalue()))
+
+            rate_str = s.getvalue()
+            rate_index = rate_str.rfind('\n', 0, len(rate_str) - 2)
+            rate = float(rate_str[rate_index + 1:len(rate_str) - 2] if rate_index != -1 else rate_str)
+            new_rates.append(rate)
+
+        #c = c + 1
+        #if c > 10:
+        #    break
 
     print(calc_rating(entry_rates['correct_mean'], new_rates))
 
+    ideltas = gen_ideltas(entry_rates['correct_mean'], new_rates)
+    sorted_ideltas = sorted(ideltas, key=lambda it: it.delta)
+    print_ideltas(sorted_ideltas, test_cases)
+
 if __name__ == '__main__':
-    do_print()
-    #do_run_alldistorted()
+    #do_print()
+    do_run_alldistorted()
