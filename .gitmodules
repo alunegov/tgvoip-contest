@@ -1,15 +1,6 @@
 [submodule "_ext/libopusenc"]
 	path = _ext/libopusenc
 	url = https://github.com/xiph/libopusenc.git
-[submodule "_ext/opusfile"]
-	path = _ext/opusfile
-	url = https://github.com/xiph/opusfile.git
-[submodule "_ext/opus"]
-	path = _ext/opus
-	url = https://github.com/xiph/opus.git
-[submodule "_ext/ogg"]
-	path = _ext/ogg
-	url = https://github.com/xiph/ogg.git
 [submodule "_ext/libtgvoip"]
 	path = _ext/libtgvoip
 	url = https://github.com/telegramdesktop/libtgvoip.git
