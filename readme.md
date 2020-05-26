@@ -1,60 +1,54 @@
-# Linux
+# VoIP Contest, Stage 1
 
-## Dev deps
+## Task
 
-```
+The task of the first round was to create two C++ applications for testing and rating the quality of VoIP calls.
+
+## Project structure
+
+- **opusfile-reader**, **opusfile-reader** - reader/writer for OPUS files
+- **tgvoipcall** - app for make calls to relay server
+- **tgvoipcall-runner** - script for make calls with tgvoipcall and samples to relay server
+- **tgvoiprate** - app for rate calls
+- **tgvoiprate-runner** - script for run tgvoiprate, script for recalc and analyze stage 1 results
+- **wavefile-reader**, **wavefile-reader** - reader/writer for WAV files
+
+## dev
+
+### deps
+
+```sh
 sudo apt-get install libssl-dev libogg-dev libopus-dev libopusfile-dev
 ```
 
 Build tools:
 
-```
-sudo apt-get install g++ cmake ninja
-```
-
-### libtgvoip
-
-```
-cd _ext/libtgvoip
-./configure --enable-audio-callback CXXFLAGS='-DTGVOIP_LOG_VERBOSITY=1 -DNDEBUG'
-make
-sudo make install
+```sh
+sudo apt-get install g++ cmake ninja-build
 ```
 
-### libopusenc
-
-```
+```sh
 cd _ext/libopusenc
 ./configure
 make
 sudo make install
-```
 
-## Build tgvoipcall
+cd _ext/libtgvoip
+./configure --enable-audio-callback CXXFLAGS='-DTGVOIP_LOG_VERBOSITY=1 -DNDEBUG'
+make
+sudo make install
 
-```
-cd tgvoipcall
 mkdir build
 cd build
 cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
 cmake --build .
 ```
 
-## Build tgvoiprate
+## dev (Windows)
 
-```
-cd tgvoiprate
-mkdir build
-cd build
-cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
-cmake --build .
-```
+### deps
 
-# Windows
-
-## Dev deps
-
-```
+```sh
 vcpkg install openssl ogg opus opusfile opusenc
 ```
 
@@ -63,30 +57,21 @@ Build tools:
 - vcpkg
 - cmake
 
-### libtgvoip
-
-```
+```sh
 cd _ext/libtgvoip
 gyp --depth=. libtgvoip.gyp
 TODO:
-```
 
-## Build tgvoipcall
-
-```
-cd tgvoipcall
 md build
 cd build
 cmake -DCMAKE_TOOLCHAIN_FILE=C:\dev\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static -DCMAKE_LIBRARY_PATH=../_ext/libtgvoip/x64/Release ..
 cmake --build . --target ALL_BUILD --config Release
 ```
 
-## Build tgvoiprate
+## Result
+
+Issues from judges:
 
 ```
-cd tgvoiprate
-md build
-cd build
-cmake -DCMAKE_TOOLCHAIN_FILE=C:\dev\vcpkg\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static ..
-cmake --build . --target ALL_BUILD --config Release
+The submitted tgvoiprate app got a score of 1359 which means it is less precise than the solution that always returned 3.0 as the result. Unfortunately, this is not good enough to compete for the prize.
 ```

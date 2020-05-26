@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 project(wavefile-reader LANGUAGES CXX)
 
-set(source_list "wavefile-reader.cpp" "wavefile-reader.h")
+set(source_list
+    "wavefile-reader.cpp"
+    "wavefile-reader.h"
+)
 
 add_library(wavefile-reader ${source_list})
 

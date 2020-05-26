@@ -8,8 +8,8 @@ if(MSVC)
     #find_package(OpenSSL)
     find_library(TGVOIP_LIB libtgvoip.lib)
 else()
-    find_library(CRYPTO_LIB libcrypto.a)
-    find_library(TGVOIP_LIB libtgvoip.a HINTS ../_ext/libtgvoip/.libs)
+    find_library(CRYPTO_LIB NAMES crypto)
+    find_library(TGVOIP_LIB NAMES tgvoip HINTS ../_ext/libtgvoip/.libs)
 endif()
 find_path(TGVOIP_INCLUDE VoIPController.h HINTS ../_ext/libtgvoip)
 if(NOT TARGET opusfile-reader)
@@ -51,7 +51,7 @@ else()
 endif()
 
 target_link_libraries(tgvoipcall
-    PRIVATE ${TGVOIP_LIB}
+    #PRIVATE ${TGVOIP_LIB}
     PRIVATE ${CRYPTO_LIB}
     PRIVATE opusfile-reader
     PRIVATE opusfile-writer

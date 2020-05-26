@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 project(wavefile-writer LANGUAGES CXX)
 
-set(source_list "wavefile-writer.cpp" "wavefile-writer.h")
+set(source_list
+    "wavefile-writer.cpp"
+    "wavefile-writer.h"
+)
 
 add_library(wavefile-writer ${source_list})
 

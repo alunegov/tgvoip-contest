@@ -8,13 +8,16 @@ if(MSVC)
     find_library(OPUS_LIB opus.lib)
     find_library(OPUSENC_LIB opusenc.lib)
 else()
-    find_library(OPUS_LIB libopus.a HINTS /usr/lib/x86_64-linux-gnu)
-    find_library(OPUSENC_LIB libopusenc.a HINTS ../_ext/libopusenc/.libs)
+    find_library(OPUS_LIB NAMES opus HINTS /usr/lib/x86_64-linux-gnu)
+    find_library(OPUSENC_LIB NAMES opusenc HINTS ../_ext/libopusenc/.libs)
 endif()
 find_path(OPUS_INCLUDE opus.h PATH_SUFFIXES opus)
 find_path(OPUSENC_INCLUDE opusenc.h HINTS ../_ext/libopusenc/include)
 
-set(source_list "opusfile-writer.cpp" "opusfile-writer.h")
+set(source_list
+    "opusfile-writer.cpp"
+    "opusfile-writer.h"
+)
 
 add_library(opusfile-writer ${source_list})
 

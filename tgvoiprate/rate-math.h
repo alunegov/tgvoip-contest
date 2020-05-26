@@ -18,15 +18,12 @@ extern "C" {
 
 void Cmplx_Ampl(RateFloat_t *aSpectrumReal, RateFloat_t *aSpectrumImag, uint32_t aCount, uint32_t aProcessingCount);
 
-void Cmplx_AmplPhase(RateFloat_t *aSpectrumReal, RateFloat_t *aSpectrumImag, uint32_t aCount, uint32_t aProcessingCount);
-
 // Misc
 
 // Returns the largest i such that 2^i <= n.
 uint32_t FloorLog2(uint64_t n);
 
 uint64_t PowOf2(uint32_t n);
-
 
 // Spectrum
 
@@ -36,27 +33,9 @@ RateFloat_t IndexToFrequency(uint32_t aIndex, RateFloat_t aDf);
 
 // Statistics
 
-RateFloat_t Excess_AdcRaw(AdcRaw_t const *aPoints, uint32_t aPointsCount, uint32_t aChannelsCount,
-        uint32_t aChannelIndex, RateFloat_t aMean);
-
-RateFloat_t Excess_RateFloat(RateFloat_t const *aPoints, uint32_t aPointsCount, uint32_t aChannelsCount,
-        uint32_t aChannelIndex, RateFloat_t aMean);
-
 RateFloat_t Mean_AdcRaw(AdcRaw_t const *aPoints, uint32_t aPointsCount);
 
 RateFloat_t Mean_RateFloat(RateFloat_t const *aPoints, uint32_t aPointsCount);
-
-void MinMaxMean_AdcRaw(AdcRaw_t const *aPoints, uint32_t aPointsCount, uint32_t aChannelsCount, uint32_t aChannelIndex,
-        AdcRaw_t *aMin, AdcRaw_t *aMax, RateFloat_t *aMean);
-
-void MinMaxMean_RateFloat(RateFloat_t const *aPoints, uint32_t aPointsCount, uint32_t aChannelsCount,
-        uint32_t aChannelIndex, RateFloat_t *aMin, RateFloat_t *aMax, RateFloat_t *aMean);
-
-RateFloat_t Rms_AdcRaw(AdcRaw_t const *aPoints, uint32_t aPointsCount, uint32_t aChannelsCount, uint32_t aChannelIndex,
-        RateFloat_t aMean);
-
-RateFloat_t Rms_RateFloat(RateFloat_t const *aPoints, uint32_t aPointsCount, uint32_t aChannelsCount,
-        uint32_t aChannelIndex, RateFloat_t aMean);
 
 RateFloat_t RmsOnSpectrum(const RateFloat_t* aPoints, uint32_t aPointsCount);
 

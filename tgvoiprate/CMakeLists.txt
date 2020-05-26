@@ -5,9 +5,12 @@ project(tgvoiprate LANGUAGES CXX)
 if(NOT TARGET opusfile-reader)
     add_subdirectory(../opusfile-reader opusfile-reader)
 endif()
-add_subdirectory(../rate-math rate-math)
 
-set(source_list "main.cpp")
+set(source_list
+    "main.cpp"
+    "rate-math.cpp"
+    "rate-math.h"
+)
 
 add_executable(tgvoiprate ${source_list})
 
@@ -30,5 +33,4 @@ endif()
 
 target_link_libraries(tgvoiprate
     PRIVATE opusfile-reader
-    PRIVATE rate-math
 )
